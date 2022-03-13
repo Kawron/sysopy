@@ -1,3 +1,6 @@
- 103  303 2207 zad1.c
-  11   31  207 zad1.h
- 114  334 2414 total
+  155  1014 10202 valgrind-out.txt
+   12    18   277 tescior.txt
+    3    12    65 temp
+    3    12    88 temp.txt
+    3    12    65 temp
+  176  1068 10697 total

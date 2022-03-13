@@ -23,12 +23,14 @@ void create_table(int size) {
   struct Block** block_array = calloc(size, sizeof(struct Block*));
   global_pointer = block_array;
   array_size = size;
+  printf("GICIOR JEST\n");
   return;
 }
 
 int count(char** files, int size) {
   // const char* wc_commend = "wc";
   // const char* temp_commend = "> temp";
+  printf("KURWAA\n");
   char files_names[100000];
   for (int i = 0; i < size; i++) {
     strcat(files_names, files[i]);
@@ -88,16 +90,16 @@ void remove_block(int index) {
   free(lineptr), free(ptr);
 }
 
-int main() {
-  create_table(1000);
-  // if (global_pointer[1] == NULL) printf("w pyte\n");
-  // printf("czy jest git\n");
-  char** pt = calloc(2, sizeof(char*));
-  pt[0] = "zad1.c";
-  pt[1] = "zad1.h";
-  int index = count(pt, 2);
-  remove_block(index);
-  // free(pt[0]), free(pt[1]), free(pt);
-  free(global_pointer);
-  return 0;
-}
+// int main() {
+//   // create_table(1000);
+//   // // if (global_pointer[1] == NULL) printf("w pyte\n");
+//   // // printf("czy jest git\n");
+//   // char** pt = calloc(2, sizeof(char*));
+//   // pt[0] = "zad1.c";
+//   // pt[1] = "zad1.h";
+//   // int index = count(pt, 2);
+//   // remove_block(index);
+//   // // free(pt[0]), free(pt[1]), free(pt);
+//   // free(global_pointer);
+//   return 0;
+// }
