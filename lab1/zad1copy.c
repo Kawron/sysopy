@@ -3,20 +3,24 @@
 #include <stdio.h>
 #include <string.h>
 
-char** global_pointer = NULL;
+struct Block** global_pointer = NULL;
 int array_size;
+
+struct Block {
+  char* line;
+};
 
 void create_table(int size) {
   if (global_pointer != NULL) {
     fprintf(stderr, "Table of pointers already created\n");
-    exit(1);
+    return;
   }
   /*# wieksza niz int*/
   if (size < 0) {
     fprintf(stderr, "Incorrect size of table");
-    exit(1);
+    return;
   }
-  char** block_array = calloc(size, sizeof(char*));
+  struct Block** block_array = calloc(size, sizeof(struct Block*));
   global_pointer = block_array;
   array_size = size;
   return;
@@ -42,13 +46,18 @@ int count(char** files, int size) {
   int index = find_free_block();
   /*czy to powinno byc tu*/
   if (index == -1) {
-    fprintf(stderr, "Didn't find free block of memory");
-    exit(1);
+    return -1;
   }
 
-  char* ptr = calloc(len+1, sizeof(char));
+  struct Block* ptr = calloc(1, sizeof(struct Block));
   global_pointer[index] = ptr;
-  int res = fread(ptr , 1, len , file);
+  ptr->line = calloc(len+1,sizeof(char));
+  char* lineptr = ptr->line;
+  int res = fread(lineptr , 1, len , file);
+
+  for (int i = 0; i < len; i++) {
+    printf("%c", lineptr[i]);
+  }
 
   close(file);
   return index;
@@ -62,14 +71,7 @@ int find_free_block() {
 }
 
 void remove_block(int index) {
-  char* ptr = global_pointer[index];
-  free(ptr);
-  global_pointer[index] = NULL;
-}
-
-void free_memory() {
-  for (int i = 0; i < array_size; i++) {
-    if (global_pointer[i] != NULL) free(global_pointer[i]);
-  }
-  free(global_pointer);
+  struct Block* ptr = global_pointer[index];
+  char* lineptr = ptr->line;
+  free(lineptr), free(ptr);
 }

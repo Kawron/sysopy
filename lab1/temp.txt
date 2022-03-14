@@ -1,6 +1,1 @@
-  155  1014 10202 valgrind-out.txt
-   12    18   277 tescior.txt
-    3    12    65 temp
-    3    12    88 temp.txt
-    3    12    65 temp
-  176  1068 10697 total
+  178  1167 11680 big1
