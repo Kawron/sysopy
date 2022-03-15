@@ -1,0 +1,1 @@
+ create_table 3 wc_files bigFile1.txt wc_files mediumFile1.txt wc_files smallFile1.txt

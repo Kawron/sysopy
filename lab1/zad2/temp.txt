@@ -1,0 +1,7 @@
+    10000     10000 100010000 bigFile1.txt
+     1000      1000   1001000 mediumFile1.txt
+      100       100     10100 smallFile1.txt
+    10000     10000 100010000 bigFile2.txt
+     1000      1000   1001000 mediumFile2.txt
+      100       100     10100 smallFile2.txt
+    22200     22200 202042200 total
