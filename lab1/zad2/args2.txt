@@ -1,1 +1,1 @@
- create_table 3 wc_files bigFile1.txt wc_files mediumFile1.txt wc_files smallFile1.txt
+ create_table 3 alocate_memory 1000 alocate_memory 100000 alocate_memory 100000000

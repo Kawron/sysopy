@@ -7,7 +7,8 @@ zad2.o: zad2.c
 	gcc $(CFLAGS) -c zad2.c
 
 test:
-	clean
+	make clean
+	make app
 	@printf "Test 1: \n" >> raport2.txt
 	@./app `cat args1.txt` >> raport2.txt
 	@printf "Test 2: \n" >> raport2.txt
@@ -20,4 +21,4 @@ test:
 
 
 clean:
-	rm *.o app libzad1.a raport2.txt
+	rm -f *.o app libzad1.a raport2.txt

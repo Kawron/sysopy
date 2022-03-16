@@ -38,15 +38,9 @@ int count(char** files, int size) {
   int len = ftell(file);
   fseek(file, 0L, SEEK_SET);
 
-  int index = find_free_block();
-  /*czy to powinno byc tu*/
-  if (index == -1) {
-    fprintf(stderr, "Didn't find free block of memory");
-    exit(1);
-  }
-
-  char* ptr = calloc(len+1, sizeof(char));
-  global_pointer[index] = ptr;
+  char* ptr = alocate_memory(len+1);
+  // char* ptr = calloc(len+1, sizeof(char));
+  // global_pointer[index] = ptr;
   int res = fread(ptr , 1, len , file);
 
   close(file);
@@ -71,4 +65,15 @@ void free_memory() {
     if (global_pointer[i] != NULL) free(global_pointer[i]);
   }
   free(global_pointer);
+}
+
+char* alocate_memory(int size) {
+  int index = find_free_block();
+  if (index == -1) {
+    fprintf(stderr, "Didn't find free block of memory");
+    exit(1);
+  }
+  char* ptr = calloc(size, sizeof(char));
+  global_pointer[index] = ptr;
+  return ptr;
 }

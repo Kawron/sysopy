@@ -17,22 +17,27 @@ int main(int argc, char* argv[]) {
   char create_table_name[] = "create_table: ";
   char wc_files_name[] = "wc_files: ";
   char remove_block_name[] = "remove_block: ";
+  char alocate_memory_name[] = "alocate_memory";
   int (*ptr_count)(char**, int);
   void (*ptr_create_table)(int);
   void (*ptr_remove_block)(int);
   void (*ptr_free_memory)();
+  char* (*ptr_alocate_memory)(int);
 
 
+// czy w time_raport moze byc string zwykły
   #ifdef LIB_DYNAMIC
     void* handle = dlopen ("../zad1/libzad1shared.so", RTLD_LAZY);
     if (handle == NULL) {
       printf("Cannot load library\n");
       exit(1);
     }
+    /*czy moge tu dac char[]*/
     ptr_create_table = dlsym(handle, "create_table");
     ptr_count = dlsym(handle, "count");
     ptr_remove_block = dlsym(handle, "remove_block");
     ptr_free_memory = dlsym(handle, "free_memory");
+    ptr_alocate_memory = dlsym(handle, "alocate_memory");
 
   #endif
 
@@ -107,6 +112,23 @@ int main(int argc, char* argv[]) {
       #endif
       stop_time();
       time_result(remove_block_name);
+      i += 2;
+    }
+
+    else if (strcmp(argv[i], "alocate_memory") == 0) {
+      if (is_number(argv[i+1]) == 0) {
+        fprintf(stderr, "Argument of alocate_memory must be a number");
+        exit(1);
+      }
+      int size = atoi(argv[i+1]);
+      start_time();
+      #ifdef LIB_DYNAMIC
+        (*alocate_memory)(size);
+      #else
+        alocate_memory(size);
+      #endif
+      stop_time();
+      time_result(alocate_memory_name);
       i += 2;
     }
   }

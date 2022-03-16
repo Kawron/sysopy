@@ -1,0 +1,58 @@
+Test 1: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.460000s, System time: 0.030000s
+
+wc_files:  Real time: 0.980000s, User Time: 0.900000s, System time: 0.090000s
+
+wc_files:  Real time: 1.060000s, User Time: 1.030000s, System time: 0.030000s
+
+wc_files:  Real time: 1.970000s, User Time: 1.890000s, System time: 0.080000s
+
+Test 2: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+alocate_memory Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+alocate_memory Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+alocate_memory Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+Test 3: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+alocate_memory Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+alocate_memory Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+alocate_memory Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+Test 4: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+alocate_memory Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+alocate_memory Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+alocate_memory Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+alocate_memory Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+alocate_memory Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
