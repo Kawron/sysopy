@@ -1,11 +1,13 @@
 app:
 	make zad2.o
-	gcc -o app zad2.o -I../zad1 -L../zad1 -lzad1static
+	make -C ../zad1 static_lib
+	gcc $(CFLAGS) -o app zad2.o -I../zad1 -L../zad1 -lzad1static
 
 zad2.o: zad2.c
 	gcc $(CFLAGS) -c zad2.c
 
 test:
+	clean
 	@printf "Test 1: \n" >> raport2.txt
 	@./app `cat args1.txt` >> raport2.txt
 	@printf "Test 2: \n" >> raport2.txt
@@ -18,4 +20,4 @@ test:
 
 
 clean:
-	rm -f *.o app libzad1.a raport2.txt
+	rm *.o app libzad1.a raport2.txt

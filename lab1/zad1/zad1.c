@@ -11,7 +11,6 @@ void create_table(int size) {
     fprintf(stderr, "Table of pointers already created\n");
     exit(1);
   }
-  /*# wieksza niz int*/
   if (size < 0) {
     fprintf(stderr, "Incorrect size of table");
     exit(1);

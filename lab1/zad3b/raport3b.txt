@@ -1,0 +1,965 @@
+static -O0 
+Test 1: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.480000s, System time: 0.040000s
+
+wc_files:  Real time: 1.030000s, User Time: 0.960000s, System time: 0.050000s
+
+wc_files:  Real time: 1.020000s, User Time: 0.920000s, System time: 0.110000s
+
+wc_files:  Real time: 2.050000s, User Time: 1.910000s, System time: 0.130000s
+
+Test 2: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.460000s, System time: 0.040000s
+
+wc_files:  Real time: 0.530000s, User Time: 0.500000s, System time: 0.020000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.480000s, System time: 0.030000s
+
+Test 3: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.480000s, System time: 0.020000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.480000s, System time: 0.040000s
+
+wc_files:  Real time: 0.500000s, User Time: 0.480000s, System time: 0.030000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+Test 4: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.480000s, System time: 0.020000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.490000s, System time: 0.030000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.480000s, System time: 0.030000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 1.010000s, User Time: 0.950000s, System time: 0.060000s
+
+wc_files:  Real time: 1.020000s, User Time: 0.960000s, System time: 0.060000s
+
+wc_files:  Real time: 1.010000s, User Time: 0.960000s, System time: 0.050000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+static -O1 
+Test 1: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.470000s, System time: 0.040000s
+
+wc_files:  Real time: 1.010000s, User Time: 0.940000s, System time: 0.070000s
+
+wc_files:  Real time: 1.010000s, User Time: 0.930000s, System time: 0.070000s
+
+wc_files:  Real time: 2.040000s, User Time: 1.900000s, System time: 0.140000s
+
+Test 2: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.480000s, System time: 0.020000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.480000s, System time: 0.030000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.440000s, System time: 0.070000s
+
+Test 3: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.470000s, System time: 0.020000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.480000s, System time: 0.040000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.480000s, System time: 0.030000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+Test 4: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.470000s, System time: 0.030000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.480000s, System time: 0.030000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.480000s, System time: 0.040000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 1.020000s, User Time: 0.960000s, System time: 0.060000s
+
+wc_files:  Real time: 1.010000s, User Time: 0.950000s, System time: 0.060000s
+
+wc_files:  Real time: 1.030000s, User Time: 0.960000s, System time: 0.060000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+static -O2 
+Test 1: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.470000s, System time: 0.040000s
+
+wc_files:  Real time: 1.030000s, User Time: 0.960000s, System time: 0.060000s
+
+wc_files:  Real time: 1.110000s, User Time: 1.070000s, System time: 0.040000s
+
+wc_files:  Real time: 2.040000s, User Time: 1.920000s, System time: 0.110000s
+
+Test 2: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.470000s, System time: 0.030000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.480000s, System time: 0.030000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.490000s, System time: 0.020000s
+
+Test 3: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.480000s, System time: 0.020000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.500000s, System time: 0.020000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.470000s, System time: 0.050000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+Test 4: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.480000s, System time: 0.020000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.460000s, System time: 0.050000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.530000s, User Time: 0.490000s, System time: 0.030000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 1.040000s, User Time: 0.980000s, System time: 0.060000s
+
+wc_files:  Real time: 1.020000s, User Time: 0.960000s, System time: 0.070000s
+
+wc_files:  Real time: 1.040000s, User Time: 0.970000s, System time: 0.050000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+static -O3 
+Test 1: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.480000s, System time: 0.020000s
+
+wc_files:  Real time: 1.020000s, User Time: 0.930000s, System time: 0.090000s
+
+wc_files:  Real time: 1.010000s, User Time: 0.940000s, System time: 0.080000s
+
+wc_files:  Real time: 2.040000s, User Time: 1.920000s, System time: 0.110000s
+
+Test 2: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.480000s, System time: 0.020000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.470000s, System time: 0.050000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.500000s, System time: 0.010000s
+
+Test 3: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.460000s, System time: 0.040000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.490000s, System time: 0.030000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.500000s, System time: 0.010000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+Test 4: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.470000s, System time: 0.030000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.480000s, System time: 0.030000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.460000s, System time: 0.050000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 1.010000s, User Time: 0.930000s, System time: 0.080000s
+
+wc_files:  Real time: 1.110000s, User Time: 1.030000s, System time: 0.080000s
+
+wc_files:  Real time: 1.020000s, User Time: 0.940000s, System time: 0.070000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+static -Os 
+Test 1: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.460000s, System time: 0.050000s
+
+wc_files:  Real time: 1.020000s, User Time: 0.970000s, System time: 0.040000s
+
+wc_files:  Real time: 1.130000s, User Time: 1.090000s, System time: 0.050000s
+
+wc_files:  Real time: 2.030000s, User Time: 1.900000s, System time: 0.130000s
+
+Test 2: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.460000s, System time: 0.040000s
+
+wc_files:  Real time: 0.530000s, User Time: 0.500000s, System time: 0.020000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.470000s, System time: 0.040000s
+
+Test 3: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.480000s, System time: 0.020000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.480000s, System time: 0.040000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.490000s, System time: 0.020000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+Test 4: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.460000s, System time: 0.030000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.500000s, System time: 0.010000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.480000s, System time: 0.030000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 1.010000s, User Time: 0.960000s, System time: 0.060000s
+
+wc_files:  Real time: 1.030000s, User Time: 0.970000s, System time: 0.040000s
+
+wc_files:  Real time: 1.020000s, User Time: 0.990000s, System time: 0.030000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+shared -O0 
+Test 1: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.470000s, System time: 0.040000s
+
+wc_files:  Real time: 1.020000s, User Time: 0.960000s, System time: 0.050000s
+
+wc_files:  Real time: 1.010000s, User Time: 0.960000s, System time: 0.060000s
+
+wc_files:  Real time: 2.040000s, User Time: 1.940000s, System time: 0.090000s
+
+Test 2: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.500000s, System time: 0.000000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.480000s, System time: 0.040000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.480000s, System time: 0.030000s
+
+Test 3: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.480000s, System time: 0.020000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.480000s, System time: 0.030000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.480000s, System time: 0.030000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+Test 4: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.470000s, System time: 0.030000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.480000s, System time: 0.030000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.480000s, System time: 0.030000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 1.020000s, User Time: 0.950000s, System time: 0.070000s
+
+wc_files:  Real time: 1.100000s, User Time: 1.040000s, System time: 0.070000s
+
+wc_files:  Real time: 1.020000s, User Time: 0.960000s, System time: 0.060000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+shared -O1 
+Test 1: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.480000s, System time: 0.020000s
+
+wc_files:  Real time: 1.020000s, User Time: 0.940000s, System time: 0.080000s
+
+wc_files:  Real time: 1.010000s, User Time: 0.920000s, System time: 0.090000s
+
+wc_files:  Real time: 2.050000s, User Time: 1.920000s, System time: 0.120000s
+
+Test 2: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.480000s, System time: 0.020000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.490000s, System time: 0.030000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.490000s, System time: 0.030000s
+
+Test 3: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.470000s, System time: 0.030000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.480000s, System time: 0.040000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.460000s, System time: 0.050000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+Test 4: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.440000s, System time: 0.060000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.500000s, System time: 0.020000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.440000s, System time: 0.070000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 1.020000s, User Time: 0.920000s, System time: 0.090000s
+
+wc_files:  Real time: 1.020000s, User Time: 0.970000s, System time: 0.050000s
+
+wc_files:  Real time: 1.010000s, User Time: 0.950000s, System time: 0.060000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+shared -O2 
+Test 1: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.470000s, System time: 0.030000s
+
+wc_files:  Real time: 1.010000s, User Time: 0.930000s, System time: 0.100000s
+
+wc_files:  Real time: 1.020000s, User Time: 0.930000s, System time: 0.080000s
+
+wc_files:  Real time: 2.060000s, User Time: 1.920000s, System time: 0.130000s
+
+Test 2: 
+create_table:  Real time: 0.010000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.480000s, System time: 0.030000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.490000s, System time: 0.020000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.450000s, System time: 0.050000s
+
+Test 3: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.470000s, System time: 0.030000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.480000s, System time: 0.030000s
+
+wc_files:  Real time: 0.530000s, User Time: 0.470000s, System time: 0.050000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+Test 4: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.450000s, System time: 0.040000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.470000s, System time: 0.050000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.490000s, System time: 0.020000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 1.010000s, User Time: 0.960000s, System time: 0.050000s
+
+wc_files:  Real time: 1.030000s, User Time: 0.950000s, System time: 0.070000s
+
+wc_files:  Real time: 1.010000s, User Time: 0.950000s, System time: 0.060000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+shared -O3 
+Test 1: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.470000s, System time: 0.040000s
+
+wc_files:  Real time: 1.020000s, User Time: 0.940000s, System time: 0.070000s
+
+wc_files:  Real time: 1.020000s, User Time: 0.970000s, System time: 0.050000s
+
+wc_files:  Real time: 2.030000s, User Time: 1.940000s, System time: 0.100000s
+
+Test 2: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.470000s, System time: 0.030000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.490000s, System time: 0.020000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.480000s, System time: 0.030000s
+
+Test 3: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.470000s, System time: 0.040000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.480000s, System time: 0.030000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.480000s, System time: 0.040000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+Test 4: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.500000s, User Time: 0.470000s, System time: 0.030000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.470000s, System time: 0.050000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.480000s, System time: 0.030000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 1.010000s, User Time: 0.990000s, System time: 0.030000s
+
+wc_files:  Real time: 1.020000s, User Time: 0.970000s, System time: 0.040000s
+
+wc_files:  Real time: 1.020000s, User Time: 0.950000s, System time: 0.060000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+shared -Os 
+Test 1: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.490000s, System time: 0.020000s
+
+wc_files:  Real time: 1.020000s, User Time: 0.970000s, System time: 0.050000s
+
+wc_files:  Real time: 1.010000s, User Time: 0.920000s, System time: 0.090000s
+
+wc_files:  Real time: 2.040000s, User Time: 1.900000s, System time: 0.130000s
+
+Test 2: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.570000s, User Time: 0.540000s, System time: 0.020000s
+
+wc_files:  Real time: 0.540000s, User Time: 0.500000s, System time: 0.030000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.500000s, System time: 0.020000s
+
+Test 3: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.540000s, User Time: 0.530000s, System time: 0.000000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.460000s, System time: 0.050000s
+
+wc_files:  Real time: 0.500000s, User Time: 0.490000s, System time: 0.020000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+Test 4: 
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.500000s, User Time: 0.480000s, System time: 0.010000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.490000s, System time: 0.020000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.530000s, User Time: 0.520000s, System time: 0.010000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 1.090000s, User Time: 1.040000s, System time: 0.050000s
+
+wc_files:  Real time: 1.010000s, User Time: 0.930000s, System time: 0.070000s
+
+wc_files:  Real time: 1.010000s, User Time: 0.950000s, System time: 0.060000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+dynamic -O0 
+Test 1: 
+test
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.480000s, System time: 0.020000s
+
+wc_files:  Real time: 1.000000s, User Time: 0.980000s, System time: 0.020000s
+
+wc_files:  Real time: 1.010000s, User Time: 0.930000s, System time: 0.070000s
+
+wc_files:  Real time: 2.000000s, User Time: 1.880000s, System time: 0.120000s
+
+Test 2: 
+test
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.470000s, System time: 0.020000s
+
+wc_files:  Real time: 0.500000s, User Time: 0.480000s, System time: 0.030000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.500000s, System time: 0.010000s
+
+Test 3: 
+test
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.500000s, User Time: 0.480000s, System time: 0.010000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.490000s, System time: 0.030000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.490000s, System time: 0.010000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+Test 4: 
+test
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.500000s, User Time: 0.470000s, System time: 0.020000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.470000s, System time: 0.030000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.500000s, User Time: 0.480000s, System time: 0.020000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 1.000000s, User Time: 0.980000s, System time: 0.030000s
+
+wc_files:  Real time: 1.020000s, User Time: 1.000000s, System time: 0.010000s
+
+wc_files:  Real time: 1.010000s, User Time: 0.960000s, System time: 0.050000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+dynamic -O1 
+Test 1: 
+test
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.490000s, System time: 0.010000s
+
+wc_files:  Real time: 1.010000s, User Time: 0.940000s, System time: 0.060000s
+
+wc_files:  Real time: 0.990000s, User Time: 0.960000s, System time: 0.040000s
+
+wc_files:  Real time: 2.020000s, User Time: 1.910000s, System time: 0.100000s
+
+Test 2: 
+test
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.500000s, User Time: 0.460000s, System time: 0.020000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.490000s, System time: 0.030000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.480000s, System time: 0.020000s
+
+Test 3: 
+test
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.460000s, System time: 0.030000s
+
+wc_files:  Real time: 0.500000s, User Time: 0.470000s, System time: 0.030000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.480000s, System time: 0.040000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+Test 4: 
+test
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.500000s, User Time: 0.460000s, System time: 0.030000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.480000s, System time: 0.030000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.500000s, System time: 0.010000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 1.010000s, User Time: 0.960000s, System time: 0.050000s
+
+wc_files:  Real time: 1.000000s, User Time: 0.920000s, System time: 0.080000s
+
+wc_files:  Real time: 1.010000s, User Time: 0.940000s, System time: 0.060000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+dynamic -O2 
+Test 1: 
+test
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.470000s, System time: 0.030000s
+
+wc_files:  Real time: 1.010000s, User Time: 0.940000s, System time: 0.060000s
+
+wc_files:  Real time: 1.000000s, User Time: 0.950000s, System time: 0.060000s
+
+wc_files:  Real time: 2.020000s, User Time: 1.920000s, System time: 0.100000s
+
+Test 2: 
+test
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.480000s, System time: 0.010000s
+
+wc_files:  Real time: 0.500000s, User Time: 0.490000s, System time: 0.020000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.480000s, System time: 0.020000s
+
+Test 3: 
+test
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.500000s, User Time: 0.460000s, System time: 0.020000s
+
+wc_files:  Real time: 0.500000s, User Time: 0.470000s, System time: 0.040000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.480000s, System time: 0.030000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+Test 4: 
+test
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.500000s, User Time: 0.480000s, System time: 0.020000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.480000s, System time: 0.010000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.500000s, User Time: 0.480000s, System time: 0.030000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 1.020000s, User Time: 0.980000s, System time: 0.030000s
+
+wc_files:  Real time: 1.000000s, User Time: 0.950000s, System time: 0.050000s
+
+wc_files:  Real time: 1.010000s, User Time: 0.940000s, System time: 0.070000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+dynamic -O3 
+Test 1: 
+test
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.500000s, User Time: 0.480000s, System time: 0.010000s
+
+wc_files:  Real time: 1.010000s, User Time: 0.960000s, System time: 0.040000s
+
+wc_files:  Real time: 1.000000s, User Time: 0.950000s, System time: 0.060000s
+
+wc_files:  Real time: 2.030000s, User Time: 1.880000s, System time: 0.140000s
+
+Test 2: 
+test
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.490000s, System time: 0.020000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.470000s, System time: 0.030000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.470000s, System time: 0.040000s
+
+Test 3: 
+test
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.500000s, User Time: 0.460000s, System time: 0.030000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.490000s, System time: 0.020000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.480000s, System time: 0.020000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+Test 4: 
+test
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.460000s, System time: 0.030000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.470000s, System time: 0.040000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.470000s, System time: 0.050000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 1.000000s, User Time: 0.930000s, System time: 0.060000s
+
+wc_files:  Real time: 1.000000s, User Time: 0.960000s, System time: 0.030000s
+
+wc_files:  Real time: 1.090000s, User Time: 1.020000s, System time: 0.080000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+dynamic -Os 
+Test 1: 
+test
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.500000s, User Time: 0.480000s, System time: 0.020000s
+
+wc_files:  Real time: 1.000000s, User Time: 0.950000s, System time: 0.040000s
+
+wc_files:  Real time: 1.000000s, User Time: 0.960000s, System time: 0.050000s
+
+wc_files:  Real time: 2.010000s, User Time: 1.920000s, System time: 0.090000s
+
+Test 2: 
+test
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.480000s, System time: 0.010000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.470000s, System time: 0.040000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.500000s, System time: 0.010000s
+
+Test 3: 
+test
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.470000s, System time: 0.030000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.470000s, System time: 0.030000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.470000s, System time: 0.030000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+Test 4: 
+test
+create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.510000s, User Time: 0.470000s, System time: 0.030000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.500000s, User Time: 0.460000s, System time: 0.040000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.520000s, User Time: 0.480000s, System time: 0.020000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+wc_files:  Real time: 0.990000s, User Time: 0.940000s, System time: 0.060000s
+
+wc_files:  Real time: 1.000000s, User Time: 0.930000s, System time: 0.070000s
+
+wc_files:  Real time: 1.000000s, User Time: 0.950000s, System time: 0.050000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+
+remove_block:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+

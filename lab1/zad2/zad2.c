@@ -17,13 +17,22 @@ int main(int argc, char* argv[]) {
   char create_table_name[] = "create_table: ";
   char wc_files_name[] = "wc_files: ";
   char remove_block_name[] = "remove_block: ";
+  int (*ptr_count)(char**, int);
+  void (*ptr_create_table)(int);
+  void (*ptr_remove_block)(int);
+  void (*ptr_free_memory)();
+
 
   #ifdef LIB_DYNAMIC
-    void* handle = dlopen (“libtest.so”, RTLD_LAZY);
-
+    void* handle = dlopen ("../zad1/libzad1shared.so", RTLD_LAZY);
+    if (handle == NULL) {
+      printf("Cannot load library\n");
+      exit(1);
+    }
     ptr_create_table = dlsym(handle, "create_table");
     ptr_count = dlsym(handle, "count");
     ptr_remove_block = dlsym(handle, "remove_block");
+    ptr_free_memory = dlsym(handle, "free_memory");
 
   #endif
 
@@ -38,6 +47,7 @@ int main(int argc, char* argv[]) {
       int size = atoi(argv[i+1]);
       start_time();
       #ifdef LIB_DYNAMIC
+        printf("test\n");
         (*ptr_create_table)(size);
       #else
         create_table(size);
@@ -91,7 +101,7 @@ int main(int argc, char* argv[]) {
       int index = atoi(argv[i+1]);
       start_time();
       #ifdef LIB_DYNAMIC
-        (*remove_block)(index);
+        (*ptr_remove_block)(index);
       #else
         remove_block(index);
       #endif
@@ -100,9 +110,12 @@ int main(int argc, char* argv[]) {
       i += 2;
     }
   }
-  free_memory();
+  if (i < argc) fprintf(stderr, "Wrong Argument\n");
   #ifdef LIB_DYNAMIC
+    (*ptr_free_memory)();
     dlclose (handle);
+  #else
+    free_memory();
   #endif
   return 0;
 }
