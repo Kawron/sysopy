@@ -5,6 +5,8 @@
 #include <sys/times.h>
 #include <time.h>
 #include <unistd.h>
+#include <ctype.h>
+#include "zad2.h"
 
 clock_t clock_begin, clock_end;
 struct tms start, end;;
@@ -83,9 +85,9 @@ int main(int argc, char* argv[]) {
 
       start_time();
       #ifdef LIB_DYNAMIC
-        int res = (*ptr_count)(array, counter);
+        (*ptr_count)(array, counter);
       #else
-        int res = count(array, counter);
+        count(array, counter);
       #endif
       stop_time();
       time_result(wc_files_name);
@@ -123,7 +125,7 @@ int main(int argc, char* argv[]) {
       int size = atoi(argv[i+1]);
       start_time();
       #ifdef LIB_DYNAMIC
-        (*alocate_memory)(size);
+        (*ptr_alocate_memory)(size);
       #else
         alocate_memory(size);
       #endif
@@ -144,7 +146,6 @@ int main(int argc, char* argv[]) {
 
 int is_number(char* word) {
   size_t size = strlen(word);
-  // if (word[0] == '0' && size > 1) return 0;
   for (int i = 0; i < size; i++) {
     if (!isdigit(word[i])) {
       return 0;
@@ -153,7 +154,7 @@ int is_number(char* word) {
   return 1;
 }
 
-void  start_time() {
+void start_time() {
   clock_begin = times(&start);
 }
 
@@ -178,9 +179,4 @@ void time_result(char procces_name[]) {
   snprintf(buffer, sizeof(buffer), "Real time: %.6fs, User Time: %.6fs, System time: %.6fs\n",
   real_time, user_time, sys_time);
   printf("%s %s\n", procces_name, buffer);
-
-  // FILE* file = fopen("raport2.txt", "a");
-  // fputs(procces_name, file);
-  // fputs(buffer, file);
-  // fclose(file);
 }

@@ -1,0 +1,1 @@
+Poszczególne poziomy optymalizacji nie wpływają znacząco na czas wykonywania operacji, jednak po wykonywaniu wielu testów możemy zauważyć, że poziom -O3 jest najszybszy z pośród innych poziomów.

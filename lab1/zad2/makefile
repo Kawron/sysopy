@@ -1,10 +1,13 @@
+CC=gcc
+CFLAGS=-Wall
+
 app:
 	make zad2.o
 	make -C ../zad1 static_lib
-	gcc $(CFLAGS) -o app zad2.o -I../zad1 -L../zad1 -lzad1static
+	$(CC) $(CFLAGS) -o app zad2.o -I../zad1 -L../zad1 -lzad1static
 
 zad2.o: zad2.c
-	gcc $(CFLAGS) -c zad2.c
+	$(CC) $(CFLAGS) -c zad2.c
 
 test:
 	make clean

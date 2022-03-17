@@ -1,15 +1,18 @@
+CC=gcc
+CFLAGS=-Wall
+
 static:
 	# upewniam się że jest lib
 	make -C ../zad1 static_lib
-	gcc $(CFLAGS) $(OPT) -o app ../zad2/zad2.c -L../zad1 -lzad1static
+	$(CC) $(CFLAGS) $(OPT) -o app ../zad2/zad2.c -L../zad1 -lzad1static
 
 shared:
 	make -C ../zad1 shared_lib
-	gcc $(CFLAGS) $(OPT) -o app ../zad2/zad2.c -L../zad1 -lzad1shared -Wl,-rpath,../zad1
+	$(CC) $(CFLAGS) $(OPT) -o app ../zad2/zad2.c -L../zad1 -lzad1shared -Wl,-rpath,../zad1
 
 dynamic:
 	make -C ../zad1 shared_lib
-	gcc $(CFLAGS) $(OPT) -o app ../zad2/zad2.c -ldl -D LIB_DYNAMIC
+	$(CC) $(CFLAGS) $(OPT) -o app ../zad2/zad2.c -ldl -D LIB_DYNAMIC
 
 clean:
 	rm -f appStatic appShared appDynamic raport3b.txt

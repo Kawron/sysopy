@@ -30,7 +30,7 @@ int count(char** files, int size) {
   char buffer[100000];
   snprintf(buffer, sizeof(buffer), "wc %s > temp.txt", files_names);
 
-   system(buffer);
+  system(buffer);
 
   FILE* file;
   file = fopen("temp.txt", "r");
@@ -41,7 +41,7 @@ int count(char** files, int size) {
   char* ptr = alocate_memory(len+1);
   // char* ptr = calloc(len+1, sizeof(char));
   // global_pointer[index] = ptr;
-  int res = fread(ptr , 1, len , file);
+  fread(ptr , 1, len , file);
 
   close(file);
   return index;
