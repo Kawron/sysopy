@@ -2,13 +2,13 @@ Bibloteka linkowana statycznie:
 Test 1: 
 create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
 
-wc_files:  Real time: 0.510000s, User Time: 0.480000s, System time: 0.030000s
+wc_files:  Real time: 0.020000s, User Time: 0.010000s, System time: 0.000000s
 
-wc_files:  Real time: 1.030000s, User Time: 0.960000s, System time: 0.050000s
+wc_files:  Real time: 0.050000s, User Time: 0.030000s, System time: 0.000000s
 
-wc_files:  Real time: 1.020000s, User Time: 0.950000s, System time: 0.080000s
+wc_files:  Real time: 0.060000s, User Time: 0.020000s, System time: 0.000000s
 
-wc_files:  Real time: 1.960000s, User Time: 1.900000s, System time: 0.060000s
+wc_files:  Real time: 0.050000s, User Time: 0.050000s, System time: 0.000000s
 
 Test 2: 
 create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
@@ -61,13 +61,13 @@ Bibloteka wspołdzielona:
 Test 1: 
 create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
 
-wc_files:  Real time: 0.510000s, User Time: 0.490000s, System time: 0.010000s
+wc_files:  Real time: 0.020000s, User Time: 0.010000s, System time: 0.000000s
 
-wc_files:  Real time: 1.040000s, User Time: 1.000000s, System time: 0.030000s
+wc_files:  Real time: 0.020000s, User Time: 0.020000s, System time: 0.000000s
 
-wc_files:  Real time: 1.010000s, User Time: 0.960000s, System time: 0.050000s
+wc_files:  Real time: 0.030000s, User Time: 0.020000s, System time: 0.010000s
 
-wc_files:  Real time: 2.040000s, User Time: 1.940000s, System time: 0.110000s
+wc_files:  Real time: 0.050000s, User Time: 0.060000s, System time: 0.000000s
 
 Test 2: 
 create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
@@ -79,7 +79,7 @@ alocate_memory Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000
 alocate_memory Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
 
 Test 3: 
-create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
+create_table:  Real time: 0.010000s, User Time: 0.000000s, System time: 0.000000s
 
 alocate_memory Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
 
@@ -121,13 +121,13 @@ Test 1:
 test
 create_table:  Real time: 0.000000s, User Time: 0.000000s, System time: 0.000000s
 
-wc_files:  Real time: 0.530000s, User Time: 0.490000s, System time: 0.020000s
+wc_files:  Real time: 0.010000s, User Time: 0.000000s, System time: 0.000000s
 
-wc_files:  Real time: 1.070000s, User Time: 1.020000s, System time: 0.050000s
+wc_files:  Real time: 0.030000s, User Time: 0.030000s, System time: 0.000000s
 
-wc_files:  Real time: 1.110000s, User Time: 1.030000s, System time: 0.070000s
+wc_files:  Real time: 0.020000s, User Time: 0.020000s, System time: 0.000000s
 
-wc_files:  Real time: 2.010000s, User Time: 1.900000s, System time: 0.100000s
+wc_files:  Real time: 0.050000s, User Time: 0.050000s, System time: 0.000000s
 
 Test 2: 
 test

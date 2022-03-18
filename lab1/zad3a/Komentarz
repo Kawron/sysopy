@@ -1,2 +1,2 @@
-Czasy wykonywania aplikacji nie rożnią się zbytnio między sobą (różnica występuje z reguły na drugim miejscu po przecinku), jednak po wykonaniu wielu testów można zauwazyć ,że prawie zawsze
+Czasy wykonywania aplikacji nie rożnią się zbytnio między sobą (różnica występuje z reguły na trzecim miejscu po przecinku), jednak po wykonaniu wielu testów można zauwazyć ,że prawie zawsze
 bibloteka linkowa statycznie jest minimalnie szybsza od pozostałych.

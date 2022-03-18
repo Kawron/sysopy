@@ -1,0 +1,1 @@
+create_table 3 alocate_memory 10000 remove_block 0 alocate_memory 1000000 remove_block 0 alocate_memory 20000 alocate_memory 123456 remove_block 0 remove_block 1 alocate_memory 123123 remove_block 0

@@ -1,2 +1,0 @@
-create_table 3 wc_files bigFile1.txt remove_block 0 wc_files mediumFile1.txt remove_block 0 wc_files smallFile1.txt remove_block 0 wc_files bigFile2.txt wc_files mediumFile2.txt wc_files smallFile2.txt remove_block 0 remove_block 1 remove_block 2
- 

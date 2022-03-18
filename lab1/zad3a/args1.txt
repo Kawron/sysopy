@@ -1,1 +1,0 @@
-create_table 4 wc_files bigFile1.txt smallFile1.txt mediumFile2.txt wc_files bigFile1.txt wc_files smallFile1.txt wc_files smallFile1.txt smallFile2.txt mediumFile1.txt mediumFile2.txt bigFile2.txt bigFile1.txt smallFile1.txt smallFile2.txt mediumFile1.txt mediumFile2.txt

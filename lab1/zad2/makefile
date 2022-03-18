@@ -13,13 +13,13 @@ test:
 	make clean
 	make app
 	@printf "Test 1: \n" >> raport2.txt
-	@./app `cat args1.txt` >> raport2.txt
+	@./app `cat ../args/args1.txt` >> raport2.txt
 	@printf "Test 2: \n" >> raport2.txt
-	@./app `cat args2.txt` >> raport2.txt
+	@./app `cat ../args/args2.txt` >> raport2.txt
 	@printf "Test 3: \n" >> raport2.txt
-	@./app `cat args3.txt` >> raport2.txt
+	@./app `cat ../args/args3.txt` >> raport2.txt
 	@printf "Test 4: \n" >> raport2.txt
-	@./app `cat args4.txt` >> raport2.txt
+	@./app `cat ../args/args4.txt` >> raport2.txt
 	@cat raport2.txt
 
 

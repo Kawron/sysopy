@@ -25,30 +25,30 @@ test:
 	make dynamic
 	@printf "Bibloteka linkowana statycznie: \n" >> raport3a.txt
 	@printf "Test 1: \n" >> raport3a.txt
-	@./appStatic `cat args1.txt` >> raport3a.txt
+	@./appStatic `cat ../args/args1.txt` >> raport3a.txt
 	@printf "Test 2: \n" >> raport3a.txt
-	@./appStatic `cat args2.txt` >> raport3a.txt
+	@./appStatic `cat ../args/args2.txt` >> raport3a.txt
 	@printf "Test 3: \n" >> raport3a.txt
-	@./appStatic `cat args3.txt` >> raport3a.txt
+	@./appStatic `cat ../args/args3.txt` >> raport3a.txt
 	@printf "Test 4: \n" >> raport3a.txt
-	@./appStatic `cat args4.txt` >> raport3a.txt
+	@./appStatic `cat ../args/args4.txt` >> raport3a.txt
 	@printf "Bibloteka wspołdzielona: \n" >> raport3a.txt
 	@printf "Test 1: \n" >> raport3a.txt
-	@./appShared `cat args1.txt` >> raport3a.txt
+	@./appShared `cat ../args/args1.txt` >> raport3a.txt
 	@printf "Test 2: \n" >> raport3a.txt
-	@./appShared `cat args2.txt` >> raport3a.txt
+	@./appShared `cat ../args/args2.txt` >> raport3a.txt
 	@printf "Test 3: \n" >> raport3a.txt
-	@./appShared `cat args3.txt` >> raport3a.txt
+	@./appShared `cat ../args/args3.txt` >> raport3a.txt
 	@printf "Test 4: \n" >> raport3a.txt
-	@./appShared `cat args4.txt` >> raport3a.txt
+	@./appShared `cat ../args/args4.txt` >> raport3a.txt
 	@printf "Bibloteka ładowana dynamicznie: \n" >> raport3a.txt
 	@printf "Test 1: \n" >> raport3a.txt
-	@./appDynamic `cat args1.txt` >> raport3a.txt
+	@./appDynamic `cat ../args/args1.txt` >> raport3a.txt
 	@printf "Test 2: \n" >> raport3a.txt
-	@./appDynamic `cat args2.txt` >> raport3a.txt
+	@./appDynamic `cat ../args/args2.txt` >> raport3a.txt
 	@printf "Test 3: \n" >> raport3a.txt
-	@./appDynamic `cat args3.txt` >> raport3a.txt
+	@./appDynamic `cat ../args/args3.txt` >> raport3a.txt
 	@printf "Test 4: \n" >> raport3a.txt
-	@./appDynamic `cat args4.txt` >> raport3a.txt
+	@./appDynamic `cat ../args/args4.txt` >> raport3a.txt
 
 	@cat raport3a.txt

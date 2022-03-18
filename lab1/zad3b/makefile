@@ -30,12 +30,12 @@ test:
 
 print_raport:
 	@printf "Test 1: \n" >> raport3b.txt
-	@./app `cat args1.txt` >> raport3b.txt
+	@./app `cat ../args/args1.txt` >> raport3b.txt
 	@printf "Test 2: \n" >> raport3b.txt
-	@./app `cat args2.txt` >> raport3b.txt
+	@./app `cat ../args/args2.txt` >> raport3b.txt
 	@printf "Test 3: \n" >> raport3b.txt
-	@./app `cat args3.txt` >> raport3b.txt
+	@./app `cat ../args/args3.txt` >> raport3b.txt
 	@printf "Test 4: \n" >> raport3b.txt
-	@./app `cat args4.txt` >> raport3b.txt
+	@./app `cat ../args/args4.txt` >> raport3b.txt
 
 	@cat raport3b.txt
