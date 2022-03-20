@@ -2,6 +2,7 @@ CC=gcc
 CFLAGS=-Wall
 
 main: zad2.o
+	make clean
 	make zad2.o
 	$(CC) $(CFLAGS) -o main zad2.o
 

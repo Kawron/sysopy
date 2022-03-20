@@ -48,4 +48,6 @@ void copy_sys(char* file_from, char* file_to) {
       write(to, &c, 1);
     }
   }
+  close(from);
+  close(to);
 }
