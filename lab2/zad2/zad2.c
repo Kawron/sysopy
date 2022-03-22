@@ -24,12 +24,22 @@ void count_lib(char* file_name, char* symb) {
   int all = 0;
   int lines_count = 0;
 
-  int x;
-  while (fgets(line, 256, file) != NULL) {
-    x = count_line(line, symb);
-    if (x > 0) {
-      all += x;
-      lines_count++;
+  // int x;
+  // while (fgets(line, 256, file) != NULL) {
+  //   x = count_line(line, symb);
+  //   if (x > 0) {
+  //     all += x;
+  //     lines_count++;
+  //   }
+  // }
+  char c;
+    int prev_lines_count = 0;
+  while((c = fgetc(file)) != EOF) {
+    if (c == symb[0]) all++;
+    if (c == '\n') {
+      if (prev_lines_count == all) continue;
+      lines_count ++;
+      prev_lines_count = all;
     }
   }
   printf("%d %d\n", all, lines_count);
@@ -56,11 +66,11 @@ void count_sys(char* file_name, char* symb) {
   close(file);
 }
 
-int count_line(char line[], char* symb) {
-  int size = 256;
-  int res = 0;
-  for (int i = 0; i < strlen(line); i++) {
-    if (line[i] == symb[0]) res++;
-  }
-  return res;
-}
+// int count_line(char line[], char* symb) {
+//   int size = 256;
+//   int res = 0;
+//   for (int i = 0; i < strlen(line); i++) {
+//     if (line[i] == symb[0]) res++;
+//   }
+//   return res;
+// }
