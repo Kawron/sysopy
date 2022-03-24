@@ -3,7 +3,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <string.h>
-// #include "zad1.h"-
+#include <time.h>
 
 int count_line(char line[], char* symb);
 void count_lib(char* file_name, char* symb);
@@ -13,8 +13,15 @@ int main(int argc, char* argv[]) {
   char* symb = argv[1];
   char* file_name = argv[2];
 
+  clock_t t;
+  t = clock();
   count_lib(file_name,symb);
+  t = clock() - t;
+  printf("Lib time: %f\n", ((double)t)/CLOCKS_PER_SEC);
+  t = clock();
   count_sys(file_name, symb);
+  t = clock()-t;
+  printf("Sys time: %f\n", ((double)t)/CLOCKS_PER_SEC);
 }
 
 void count_lib(char* file_name, char* symb) {
@@ -24,14 +31,6 @@ void count_lib(char* file_name, char* symb) {
   int all = 0;
   int lines_count = 0;
 
-  // int x;
-  // while (fgets(line, 256, file) != NULL) {
-  //   x = count_line(line, symb);
-  //   if (x > 0) {
-  //     all += x;
-  //     lines_count++;
-  //   }
-  // }
   char c;
     int prev_lines_count = 0;
   while((c = fgetc(file)) != EOF) {
@@ -42,7 +41,7 @@ void count_lib(char* file_name, char* symb) {
       prev_lines_count = all;
     }
   }
-  printf("%d %d\n", all, lines_count);
+  printf("Lib res: all-%d lines-%d\n", all, lines_count);
   fclose(file);
 }
 
@@ -62,7 +61,7 @@ void count_sys(char* file_name, char* symb) {
       prev_lines_count = all;
     }
   }
-  printf("%d %d\n", all, lines_count);
+  printf("Lib res: all-%d lines-%d\n", all, lines_count);
   close(file);
 }
 

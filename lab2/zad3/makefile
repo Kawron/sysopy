@@ -1,12 +1,16 @@
 CC=gcc
-CFLAGS=-Wall
+CFLAGS=-Wall -g
 
-main: zad3.o
-	make zad3.o
-	$(CC) $(CFLAGS) -o main zad3.o
+all:
+	make clean
+	make mainSTAT
+	make mainNFTW
 
-zad3.o: zad3.c
-	$(CC) $(CFLAGS) -c zad3.c
+mainSTAT:
+	$(CC) $(CFLAGS) -D STAT -o mainSTAT zad3.c
+
+mainNFTW:
+	$(CC) $(CFLAGS) -D NFTW -o mainNFTW zad3.c
 
 clean:
 	rm -f *.o main

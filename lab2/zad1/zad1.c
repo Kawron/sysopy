@@ -2,9 +2,10 @@
 #include <stdio.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <time.h>
 #include "zad1.h"
-
 int main(int argc, char* argv[]) {
+
   char* file_from;
   char* file_to;
   if (argc < 3) {
@@ -20,7 +21,16 @@ int main(int argc, char* argv[]) {
     file_from = argv[1];
     file_to = argv[2];
   }
+  clock_t t;
+  t = clock();
   copy_lib(file_from, file_to);
+  t = clock() - t;
+  printf("Lib time: %f\n", ((double)t)/CLOCKS_PER_SEC);
+
+  t = clock();
+  copy_sys(file_from, file_to);
+  t = clock()-t;
+  printf("Sys time: %f\n", ((double)t)/CLOCKS_PER_SEC);
 }
 
 void copy_lib(char* file_from, char* file_to) {

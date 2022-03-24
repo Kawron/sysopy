@@ -10,4 +10,10 @@ zad1.o: zad2.c
 	$(CC) $(CFLAGS) -c zad2.c
 
 clean:
-	rm -f *.o main
+	rm -f *.o main raport.txt
+
+test:
+	make clean
+	make main
+	@printf "Time Test: \n" >> raport.txt
+	@./main k test.txt >> raport.txt
