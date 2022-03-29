@@ -64,12 +64,3 @@ void count_sys(char* file_name, char* symb) {
   printf("Lib res: all-%d lines-%d\n", all, lines_count);
   close(file);
 }
-
-// int count_line(char line[], char* symb) {
-//   int size = 256;
-//   int res = 0;
-//   for (int i = 0; i < strlen(line); i++) {
-//     if (line[i] == symb[0]) res++;
-//   }
-//   return res;
-// }

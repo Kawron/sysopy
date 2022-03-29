@@ -1,5 +1,0 @@
-Time Test: 
-Lib res: all-37 lines-17
-Lib time: 0.000189
-Lib res: all-37 lines-17
-Sys time: 0.001185
