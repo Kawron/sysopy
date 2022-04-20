@@ -1,0 +1,4 @@
+s1 = grep -al | test | test
+s2 = ckc | ls aux | ckc
+s3 = op | po | sd -ffa
+s1 | s2 | s3
