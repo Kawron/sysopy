@@ -1,186 +1,256 @@
-#include <stdlib.h>
 #include <stdio.h>
+#include <sys/types.h>
+#include <memory.h>
+#include <sys/wait.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+#define MAX_LINE_LENGHT 1000
+#define MAX_DECLARATIONS 64
+#define MAX_COMMANDS 100
 
 int addedStatements = 0;
 int commandsToExecute = 0;
 
-void executeCommands(char** commands) {
-  int** pipes = calloc(commandsToExecute, sizeof(int*));
-  for (int i = 0; i < commandsToExecute; i++) {
-    pipes[i] = calloc(2, sizeof(int));
-  }
-
-  for (int i = 0; i < commandsToExecute; i++) {
-    pid_t pid = fork();
-    if (pif == 0) {
-      if (i > 0) {
-        dup2(pipes[i-1][0], STDIN_FILENO);
-      }
-      if (i + 1 < commandsToExecute) {
-        dup2(pipes[i][1], STDOUT_FILENO);
-      }
-      // to zmienic
-      for (int j = 0; j < commandsToExecute -1; j++) {
-        close(pipes[j][0]);
-        close(pipes[j][1]);
-      }
-    }
-  }
-}
-
-char** splitCommands(char** commands, int cnt) {
-  commandsToExecute = 0;
-  char** res = calloc(100, sizeof(char*));
-  for (int i = 0; i < 100; i++) {
-    res[i] = calloc(100, sizeof(char));
-  }
-
-  int index = 0;
-  for (int i = 0; i < cnt; i++) {
-    char* chunk = commands[i];
-    printf("Chunk: %s\n", chunk);
-    int k = 0;
-    int flag = 0;
-    while (1) {
-      char* word = calloc(100,sizeof(char));
-      int j = 0;
-
-      while(1) {
-        if (chunk[k] == '\0') {
-          flag = 1;
-          break;
-        }
-        if (chunk[k] == '|') {
-          k+=2;
-          break;
-        }
-        word[j] = chunk[k];
-        j++;
-        k++;
-      }
-      word[j] = '\0';
-      res[index] = word;
-      printf("Word: %s Index: %d\n", word,index);
-      commandsToExecute++;
-      index++;
-      if (flag == 1) break;
+char* deleteNewLine(char* word, int substitute) {
+  int n = strlen(word);
+  char* res = calloc(n, sizeof(char));
+  for (int i = 0; i < n; i++) {
+    res[i] = word[i];
+    if (word[i] == '\n') {
+      res[i] = substitute;
     }
   }
   return res;
 }
 
-char* findInStatements(char* line, char** statements) {
-  printf("In findInStatements\n");
-  printf("Looking for %s\n", line);
-  for (int i = 0; i < addedStatements; i++) {
-    printf("Statement: %s\n", statements[i]);
-    printf("Line: %s\n", line);
-    int j = 0;
-    int flag = 0;
-
-    while(1) {
-      printf("Comparing: %c to %c\n", statements[i][j],line[j]);
-      if (statements[i][j] == ' ') {
-        flag = 1;
-        break;
-      }
-      if (line[j] != statements[i][j]) {
-        break;
-      }
-      j++;
+char* deleteLastSpace(char* word, int substitute) {
+  int n = strlen(word);
+  char* res = calloc(n, sizeof(char));
+  for (int i = 0; i < n; i++) {
+    res[i] = word[i];
+    if (word[i] == ' ' && i == n-1) {
+      res[i] = substitute;
     }
-    printf("Flag: %d\n", flag);
-    if (flag == 0) continue;
-    char* res = calloc(100, sizeof(char));
-    int k = 0;
-    j++;
-    //skip " = "
-    j += 2;
-    while (statements[i][j] != '\n') {
-      res[k] = statements[i][j];
-      k++;
-      j++;
-    }
-    res[k] == '\0';
-    printf("RES: %s\n", res);
-    return res;
-    printf("exiting findInStatements\n");
   }
+  return res;
 }
 
-void clearBuffor(char* buffor) {
-  for (int i = 0; i < 100; i++) {
-    buffor[i] == "/0";
+char* deleteFirstSpace(char* word, int substitute) {
+  int n = strlen(word);
+  char* res = calloc(n, sizeof(char));
+  for (int i = 0; i < n-1; i++) {
+    res[i] = word[i+1];
   }
+  return res;
 }
 
-void parse(char* line, char** statements) {
-  char** commands = calloc(10, sizeof(char*));
-  int cntCommnads = 0;
-  for (int i = 0; i < 10; i++) {
-    commands[i] = calloc(100, sizeof(char));
-  }
-  char* buffor = calloc(100, sizeof(char));
-  clearBuffor(buffor);
+void printCharByChar(char* word) {
   int i = 0;
-  int j = 0;
-  int k = 0;
-  while (i < 100) {
-    if (line[i] == '\n' || line[i] == EOF) {
-      // add last line
-      commands[j] = findInStatements(buffor, statements);
-      cntCommnads++;
-      clearBuffor(buffor);
-      break;
-    }
-    else if (line[i] == '|') {
-      // add commmand
-      commands[j] = findInStatements(buffor, statements);
-      cntCommnads++;
-      clearBuffor(buffor);
-      k = 0;
-      // skip whitespace after |
-      i++;
-      j++;
-    }
-    else if (line[i] != " ") {
-      buffor[k] = line[i];
-      k++;
-    }
+  while(word[i] != '\0') {
+    printf("%d ", word[i]);
     i++;
   }
-  printf("-----------------\n");
-  for (int i = 0; i < cntCommnads; i++) {
-    printf("%s |", commands[i]);
+  printf("\n");
+}
+
+char** seperateNameOptions(char* command) {
+  char** res = calloc(4, sizeof(char*));
+  for (int i = 0; i < 4; i++) {
+    res[i] = calloc(100, sizeof(char));
   }
-  printf("\n-----------------\n");
-  char** res = splitCommands(commands, cntCommnads);
-  // executeCommands(commands, cntCommnads);
+  int k = 0;
+  char* token;
+  token = strtok(command, " ");
+  while (token != NULL) {
+    strcpy(res[k], token);
+    res[k] = deleteNewLine(res[k], 0);
+    token = strtok(NULL, " ");
+    k++;
+  }
+  res[k] = NULL;
+
+  return res;
+}
+
+
+void executeCommands(char** commands) {
+
+  int pipes[2][2];
+
+  int i;
+  for (i = 0; i < commandsToExecute; i++) {
+
+    if (i > 0) {
+      close(pipes[i % 2][0]);
+      close(pipes[i % 2][1]);
+    }
+
+    pipe(pipes[i % 2]);
+
+    pid_t pid = fork();
+
+    if (pid < 0) {
+      fprintf(stderr, "Cos nie dziala\n");
+    }
+
+    if (pid == 0) {
+
+      char* res[100];
+      char** tmp = calloc(100, sizeof(char*));
+      for (int k = 0; k < 100; k++) {
+        tmp[k] = calloc(100, sizeof(char));
+      }
+      int k = 0;
+      char* token;
+      token = strtok(commands[i], " ");
+      while (token != NULL) {
+        strcpy(tmp[k], token);
+        tmp[k] = deleteNewLine(tmp[k], 0);
+        token = strtok(NULL, " ");
+        k++;
+      }
+      tmp[k] = NULL;
+      int cnt = k;
+
+      for (int k = 0; k < cnt; k++) {
+        res[k] = tmp[k];
+      }
+
+      if ( i  !=  commandsToExecute-1) {
+        close(pipes[i % 2][0]);
+        dup2(pipes[i % 2][1], STDOUT_FILENO);
+      }
+      if (i != 0) {
+        close(pipes[(i + 1) % 2][1]);
+        dup2(pipes[(i + 1) % 2][0], STDIN_FILENO);
+      }
+
+      execvp(res[0], res);
+      exit(1);
+    }
+  }
+  close(pipes[i % 2][0]);
+  close(pipes[i % 2][1]);
+  for (int i = 0; i < commandsToExecute; ++i) {
+    waitpid(-1,NULL,0);
+  }
+  wait(0);
+  exit(0);
+}
+
+char* findStatement(char* line, char** statements) {
+  char* token = calloc(100, sizeof(char));
+  char* statementCopy = calloc(100, sizeof(char));
+  char* res = calloc(100, sizeof(char));
+  int flag = 0;
+
+  for (int i = 0; i < addedStatements; i++) {
+    strcpy(statementCopy, statements[i]);
+    token = strtok(statementCopy, " = ");
+    char* comparer = deleteNewLine(line, 0);
+
+    if (strcmp(comparer, token) == 0) {
+      token = strtok(NULL, "=");
+      strcpy(res, token);
+
+      flag = 1;
+      free(comparer);
+      break;
+    }
+  }
+  free(statementCopy);
+  if (flag == 1) return res;
+  fprintf(stderr, "Nothing found\n");
+  exit(1);
+}
+
+char** finalCommand(char** line, char** declarations, int cnt) {
+  char** commands = calloc(MAX_COMMANDS, sizeof(char*));
+  for (int i = 0; i < MAX_COMMANDS; i++) {
+    commands[i] = calloc(MAX_LINE_LENGHT, sizeof(char));
+  }
+
+  char* tmp;
+  for (int i = 0; i < cnt; i++) {
+    tmp = findStatement(line[i], declarations);
+    strcpy(commands[i], tmp);
+  }
+
+  //split
+  char** res = calloc(MAX_COMMANDS, sizeof(char));
+  for (int i = 0; i < MAX_COMMANDS; i++) {
+    res[i] = calloc(MAX_LINE_LENGHT, sizeof(char));
+  }
+  int k = 0;
+  for (int i = 0; i < cnt; i++) {
+    char* token;
+    token = strtok(commands[i], "|");
+    while (token != NULL) {
+      strcpy(res[k], token);
+      token = strtok(NULL, "|");
+      k++;
+    }
+  }
+  commandsToExecute = k;
+
+  return res;
+}
+
+void parse(char* line, char** declarations) {
+  char** commands = calloc(MAX_COMMANDS, sizeof(char*));
+  for (int i = 0; i < MAX_COMMANDS; i++) {
+    commands[i] = calloc(MAX_LINE_LENGHT, sizeof(char));
+  }
+
+  int cnt = 0;
+  char* token;
+  token = strtok(line, " | ");
+  while (token != NULL) {
+    strcpy(commands[cnt], token);
+    token = strtok(NULL, " | ");
+    cnt++;
+  }
+
+  char** res = finalCommand(commands, declarations, cnt);
+
+  for (int i = 0; i < commandsToExecute; i++) {
+    res[i] = deleteNewLine(res[i], 0);
+    res[i] = deleteLastSpace(res[i], 0);
+    res[i] = deleteFirstSpace(res[i], 0);
+  }
+
+  // printf("ALL COMMANDS:\n");
+  // for (int i = 0; i < commandsToExecute; i++) {
+  //   printf("%s, ", res[i]);
+  // }
+  // printf("\n");
+  //
+  // printf("ALL COMMANDS CHAR BY CHAR:\n");
+  // for (int i = 0; i < commandsToExecute; i++) {
+  //   printCharByChar(res[i]);
+  // }
+
+  executeCommands(res);
 }
 
 int main(int argc, char* argv[]) {
 
-  if (argc <= 1) {
-    fprintf(stderr, "Too litle arguments\n");
+  FILE* f = fopen(argv[1], "r");
+
+  char** declarations = calloc(MAX_DECLARATIONS, sizeof(char*));
+  for (int i = 0; i < MAX_DECLARATIONS; i++) {
+    declarations[i] = calloc(MAX_LINE_LENGHT, sizeof(char));
   }
 
   int flag;
-  int maxLineLength = 126;
-
-  FILE* f = fopen(argv[1], "r");
-
-  char** statements = calloc(200, sizeof(char*));
-  for (int i = 0; i < 200; i++) {
-    statements[i] = calloc(maxLineLength, sizeof(char));
-  }
   int index = 0;
-
-  char* line = calloc(maxLineLength, sizeof(char));
-  while(fgets(line, maxLineLength, f) != NULL) {
+  char line[MAX_LINE_LENGHT];
+  // that main loop looks good
+  while(fgets(line, MAX_LINE_LENGHT, f) != NULL) {
     flag = 0;
-    // fgets(line, maxLineLength, f);
 
-    for (int i = 0; i < maxLineLength; i++) {
+    for (int i = 0; i < MAX_LINE_LENGHT; i++) {
       if (line[i] == '\n') break;
       if (line[i] == '\=') flag = 1;
     }
@@ -188,13 +258,12 @@ int main(int argc, char* argv[]) {
     // wykonac instrukcje
     if (flag == 0) {
       printf("Parsing line: %s\n", line);
-      parse(line, statements);
-    // definicja
+      parse(line, declarations);
   }
+    // definicja
     else {
-      printf("adding to statements line: %s\n", line);
-      strcpy(statements[index], line);
-      // statements[index] = line;
+      printf("Adding to statements line: %s\n", line);
+      strcpy(declarations[index], line);
       addedStatements++;
       index++;
     }
