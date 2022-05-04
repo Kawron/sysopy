@@ -1,5 +1,19 @@
 #define _GNU_SOURCE
 
+
+#include <errno.h>
+#include <fcntl.h>
+#include <libgen.h>
+#include <memory.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/ipc.h>
+#include <sys/msg.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <time.h>
+#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
@@ -25,7 +39,6 @@ struct msg server_response;
 void register_user() {
   int user_id = user_request.msg_text.sender;
   int flag = 0;
-
   for (int i = 0; i < MAX_CLIENTS_NUMBER; i++) {
     if (clients_id[i] == -1) {
       clients_id[i] = user_id;
@@ -71,19 +84,19 @@ void send_2all() {
     msgsnd(clients_id[i], &server_response, sizeof(struct msg_text), 0);
   }
 }
-// void user_stoped(struct message* msg) {
-//   int user_key = msg->sender;
-//
-//   for (int i = 0; i < MAX_CLIENTS_NUMBER; i++) {
-//     if (clients_key[i] == user_key) {
-//       clients_key[i] = -1;
-//       clients_number--;
-//       return;
-//     }
-//   }
-//   fprintf(stderr, "SERVER: couldn't delete user\n");
-//   exit(1);
-// }
+void user_stoped(struct message* msg) {
+  int user_key = msg->sender;
+
+  for (int i = 0; i < MAX_CLIENTS_NUMBER; i++) {
+    if (clients_key[i] == user_key) {
+      clients_key[i] = -1;
+      clients_number--;
+      return;
+    }
+  }
+  fprintf(stderr, "SERVER: couldn't delete user\n");
+  exit(1);
+}
 
 void response() {
   switch (user_request.msg_type) {
@@ -96,9 +109,9 @@ void response() {
     case GET_LIST:
       listing_request(); //done
       break;
-    // case SEND_2ALL:
-    //   user_send_2all(msg);
-    //   break;
+    case SEND_2ALL:
+      user_send_2all(msg);
+      break;
     // case SEND_2ONE:
     //   user_send_2one(msg);
     //   break;
@@ -135,12 +148,12 @@ int main(int argc, char** argv) {
     exit(1);
   }
 
-  server_id = msgget(server_key, IPC_CREAT);
+  server_id = msgget(server_key, IPC_CREAT | QUEUE_PERMISSIONS);
   if (server_id == -1) {
     fprintf(stderr, "Wywalilo sie\n");
     exit(1);
   }
-
+  printf("SERVER: My id is %d\n", server_id);
   // struct sigaction action;
   //
   // action.sa_handler = SIGINT_handler;

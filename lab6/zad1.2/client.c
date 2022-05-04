@@ -53,18 +53,19 @@ void get_list() {
     fprintf(stderr, "CLIENT: sending \"GET_LIST\" request failed\n");
     exit(1);
   }
-  if (msgrcv(local_id, &server_response, sizeof(struct msg_text), 0, 0) == -1) {
-    fprintf(stderr, "CLIENT: didn't receive listing response\n");
-    exit(1);
-  }
-  printf("CLIENT: \n");
-  printf("%s\n", server_response.msg_text.buf);
+  // tego chyba nie trzeba
+  // if (msgrcv(local_id, &server_response, sizeof(struct msg_text), 0, 0) == -1) {
+  //   fprintf(stderr, "CLIENT: didn't receive listing response\n");
+  //   exit(1);
+  // }
+  // printf("CLIENT: \n");
+  // printf("%s\n", server_response.msg_text.buf);
 }
 
 void register_user() {
   client_request.msg_type = INIT;
   client_request.msg_text.sender = local_id;
-
+  printf("CLIENT: server id is %d\n", server_id);
   sprintf(client_request.msg_text.buf, "%d", local_id);
 
   if (msgsnd(server_id, &client_request, sizeof(struct msg_text), 0) == -1) {
@@ -273,12 +274,12 @@ void send_2all() {
 // }
 //
 void input_loop() {
-
   while(1) {
     char text[256];
     printf("CLIENT: enter your message: ");
     if (fgets(text, 256, stdin) == NULL) {
       printf("CLIENT: something went wrong try again\n");
+      sleep(2);
       continue;
     }
     int n = strlen(text);
@@ -288,7 +289,6 @@ void input_loop() {
 
     if (strcmp(text, "LIST") == 0) {
       get_list();
-      sleep(5);
     }
     if (strcmp(text, "2ALL") == 0) {
       send_2all();
@@ -301,33 +301,33 @@ void input_loop() {
     //   printf("CLIENT: ended client work\n");
     //   exit(0);
     // }
-    sleep(2);
+    sleep(1);
   }
 }
 //
-// void catcher() {
-//
-//   while (0) {
-//     // read an incoming message, with priority order
-//
-//     if (msgrcv(local_id, &server_response, sizeof(struct msg_text), -200, 0) == -1) {
-//       fprintf(stderr, "CLIENT: couldn't catch message from server\n");
-//     }
-//     else {
-//       char message_received_buffer[BUFFER_SIZE];
-//
-//       sprintf(message_received_buffer,
-//                 "Client, message received\n\t type: %ld, sender: %d, message: "
-//                 "%s \n",
-//                 server_response.msg_type, server_response.msg_text.sender,
-//                 server_response.msg_text.buf);
-//
-//     }
-//     if (server_response.msg_type == SHUTDOWN) {
-//         break;
-//     }
-//   }
-// }
+void catcher() {
+
+  while (1) {
+    // read an incoming message, with priority order
+    sleep(1);
+    if (msgrcv(local_id, &server_response, sizeof(struct msg_text), -200, 0) == -1) {
+      fprintf(stderr, "CLIENT: couldn't catch message from server\n");
+    }
+    else {
+      char message_received_buffer[BUFFER_SIZE];
+
+      sprintf(message_received_buffer,
+                "Client, message received\n\t type: %ld, sender: %d, message:\n "
+                "%s \n",
+                server_response.msg_type, server_response.msg_text.sender,
+                server_response.msg_text.buf);
+      printf("%s\n", message_received_buffer);
+    }
+    if (server_response.msg_type == SHUTDOWN) {
+        break;
+    }
+  }
+}
 
 int main(int argc, char* argv[]) {
     char* homedir = getenv("HOME");
@@ -368,25 +368,25 @@ int main(int argc, char* argv[]) {
 
     // main loop
 
-    while(1) {
-      char text[256];
-      printf("CLIENT: enter your message: ");
-      if (fgets(text, 256, stdin) == NULL) {
-        printf("CLIENT: something went wrong try again\n");
-        continue;
-      }
-      int n = strlen(text);
-      if (text[n-1] == '\n') text[n-1] = 0;
-      printf("\n");
-      printf("CLIENT: msg is \"%s\"\n", text);
-
-      if (strcmp(text, "LIST") == 0) {
-        get_list();
-        sleep(5);
-      }
-      if (strcmp(text, "2ALL") == 0) {
-        send_2all();
-      }
+    // while(1) {
+    //   char text[256];
+    //   printf("CLIENT: enter your message: ");
+    //   if (fgets(text, 256, stdin) == NULL) {
+    //     printf("CLIENT: something went wrong try again\n");
+    //     continue;
+    //   }
+    //   int n = strlen(text);
+    //   if (text[n-1] == '\n') text[n-1] = 0;
+    //   printf("\n");
+    //   printf("CLIENT: msg is \"%s\"\n", text);
+    //
+    //   if (strcmp(text, "LIST") == 0) {
+    //     get_list();
+    //     sleep(5);
+    //   }
+    //   if (strcmp(text, "2ALL") == 0) {
+    //     send_2all();
+    //   }
       // if (strcmp(text, "2ONE") == 0) {
       //   send_2one();
       // }
@@ -395,7 +395,7 @@ int main(int argc, char* argv[]) {
       //   printf("CLIENT: ended client work\n");
       //   exit(0);
       // }
-    }
+    // }
 
     // else {
     //   char message_received_buffer[BUFFER_SIZE];
@@ -410,37 +410,28 @@ int main(int argc, char* argv[]) {
     //   user_id = server_response.msg_type;
     // }
 
-    // pid = fork();
-    //
-    // if (pid == 0) {
-    //     // struct sigaction action;
-    //     //
-    //     // action.sa_handler = NULL;
-    //     // action.sa_flags = 0;
-    //     //
-    //     // sigaction(SIGINT, &action, NULL);
-    //
-    //     input_loop();
-    //
-    // }
-    // else if (pid > 0) {
-    //     // struct sigaction action;
-    //     //
-    //     // action.sa_handler = handle_SIGINT;
-    //     //
-    //     // sigemptyset(&action.sa_mask);
-    //     // sigaddset(&action.sa_mask, SIGINT);
-    //     //
-    //     // action.sa_flags = 0;
-    //     //
-    //     // sigaction(SIGINT, &action, NULL);
-    //
-    //     // catcher();
-    //
-    // }
-    // else {
-    //     print_error("ERROR while creating fork");
-    // }
+    pid = fork();
+
+    if (pid == 0) {
+        input_loop();
+    }
+    else if (pid > 0) {
+        // struct sigaction action;
+        //
+        // action.sa_handler = handle_SIGINT;
+        //
+        // sigemptyset(&action.sa_mask);
+        // sigaddset(&action.sa_mask, SIGINT);
+        //
+        // action.sa_flags = 0;
+        //
+        // sigaction(SIGINT, &action, NULL);
+
+        catcher();
+    }
+    else {
+        print_error("ERROR while creating fork");
+    }
 
     // end_client();
 
