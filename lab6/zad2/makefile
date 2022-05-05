@@ -9,4 +9,4 @@ server: server.c
 	$(CC) server.c -o ./server
 
 clean:
-	rm -rf *.o server client handlers
+	rm -rf *.o *.txt server client

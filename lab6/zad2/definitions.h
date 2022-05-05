@@ -12,16 +12,5 @@
 #define SEND_2ONE 5
 #define CLOSING_SERVER 6
 
-
-struct msg_text {
-    int sender;
-    int address;
-    char buffor[256];
-};
-
-struct msg {
-    long msg_type;
-    struct msg_text msg_text;
-};
-
+const char server_path[] = "./server";
 #endif  // DEFINITIONS_H

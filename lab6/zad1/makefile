@@ -1,13 +1,12 @@
-CC=gcc
-CFLAGS=-Wall -g
+CC = gcc -Wall -ggdb
 
-all: client server
+all: server client
 
 client: client.c
-	$(CC) $(CFLAGS) -o client client.c
+	$(CC) client.c -o ./client
 
 server: server.c
-	$(CC) $(CFLAGS) -o server server.c
+	$(CC) server.c -o ./server
 
 clean:
-	rm -f *.o client server
+	rm -rf *.o *.txt server client

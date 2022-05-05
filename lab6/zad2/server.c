@@ -176,17 +176,13 @@ int main(int argc, char** argv) {
       clients_id[i] = -1;
   }
 
-  server_key = ftok(home, PROJECT_ID);
-  if (server_key == (key_t)-1) {
-    fprintf(stderr, "SERVER: server key is: %d\n");
-    exit(1);
-  }
+  // a to po co
+  // struct mq_attr current_state;
+  struct mq_attr server_attr;
+  server_attr.mq_maxmsg = MAX_MESSAGE_QUEUE_SIZE;
+  server_attr.mq_msgsize = MESSAGE_SIZE;
 
-  server_id = msgget(server_key, IPC_CREAT | QUEUE_PERMISSIONS);
-  if (server_id == -1) {
-    fprintf(stderr, "SERVER: server couldn't create queue");
-    exit(1);
-  }
+  server_id = mq_open(server_path, O_RDONLY | O_CREAT | O_EXCL, 0666, &server_attr);
   printf("SERVER: My id is %d\n", server_id);
 
   struct sigaction action;
