@@ -221,8 +221,8 @@ int main(int argc, char* argv[]) {
       catcher();
     }
     else {
-        fprintf(stderr, "CLIENT: Couldn't fork\n");
-        exit(1);
+      fprintf(stderr, "CLIENT: Couldn't fork\n");
+      exit(1);
     }
 
     return 0;

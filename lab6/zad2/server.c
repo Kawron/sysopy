@@ -1,48 +1,38 @@
-#define _GNU_SOURCE
-
-#include <fcntl.h>
 #include <libgen.h>
 #include <memory.h>
-#include <stdio.h>
 #include <stdlib.h>
-#include <sys/ipc.h>
 #include <sys/msg.h>
+#include <fcntl.h>
 #include <sys/stat.h>
+#include <stdio.h>
 #include <sys/types.h>
+#include <sys/ipc.h>
 #include <sys/wait.h>
 #include <time.h>
 #include <unistd.h>
-#include <assert.h>
 #include <string.h>
 #include <errno.h>
 #include <unistd.h>
 #include <ctype.h>
 #include <time.h>
 #include <signal.h>
+#include <mqueue.h>
 
 #include "definitions.h"
 
-key_t clients_id[MAX_CLIENTS_NUMBER] = {-1};
+int clients_keys[MAX_CLIENTS_NUMBER] = {-1};
 key_t server_key;
-int server_id = 0;
-struct msg user_request;
-struct msg server_response;
-
-void log(int user_id, char* message){
-  FILE *f = fopen("log.txt","a");
-  time_t t = time(NULL);
-  struct tm tm = *localtime(&t);
-  fprintf(f,"%d-%02d-%02d %02d:%02d:%02d>> user_id: %d,  message: %s\n",
-   tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec, user_id, message);
-  fclose(f);
-}
+mqd_t server_id;
+int piority;
+char message[1064];
+char user_path[1064];
 
 void register_user() {
-  int user_id = user_request.msg_text.sender;
+  int user_key = atoi(message);
   int flag = 0;
   for (int i = 0; i < MAX_CLIENTS_NUMBER; i++) {
-    if (clients_id[i] == -1) {
-      clients_id[i] = user_id;
+    if (clients_keys[i] == -1) {
+      clients_keys[i] = user_key;
       flag = 1;
       break;
     }
@@ -51,79 +41,100 @@ void register_user() {
     printf("SERVER: not enough place for more users\n");
     return;
   }
-  server_response.msg_type = 5;
-  server_response.msg_text.sender = server_id;
-  strcpy(server_response.msg_text.buffor, "#log: user registered");
 
-  printf("SERVER: user with id %d was just registered\n", user_id);
-  msgsnd(user_id, &server_response, sizeof(struct msg_text), 0);
-  log(user_id, server_response.msg_text.buffor);
+  printf("SERVER: user with key %d was just registered\n", user_key);
+  sprintf(user_path, "/%d", user_key);
+  strcpy(message, "SERVER: success");
+
+  mqd_t user_queue_id = mq_open(user_path, O_WRONLY);
+  mq_send(user_queue_id, &message, MESSAGE_SIZE, INIT);
 }
 
 void listing_request() {
-  int user_id = user_request.msg_text.sender;
+  int user_key = atoi(message);
 
-  char buffor[sizeof(struct msg_text)];
+  char buffor[1064];
   int idx = 0;
   for (int i = 0; i < MAX_CLIENTS_NUMBER; i++) {
-    if (clients_id[i] != -1) {
-      idx += sprintf(&buffor[idx], "%d\n", clients_id[i]);
+    if (clients_keys[i] != -1) {
+      idx += sprintf(&buffor[idx], "%d\n", clients_keys[i]);
     }
   }
   buffor[idx] = 0;
-  strcpy(server_response.msg_text.buffor, buffor);
-  server_response.msg_text.sender = server_id;
 
-  printf("SERVER: user with id %d requested listing\n", user_id);
-  msgsnd(user_id, &server_response, sizeof(struct msg_text), 0);
-  log(user_id, server_response.msg_text.buffor);
+  strcpy(message, buffor);
+  printf("SERVER: user with key %d requested listing\n", user_key);
+  sprintf(user_path, "/%d", user_key);
+
+  mqd_t user_queue_id = mq_open(user_path, O_WRONLY);
+  mq_send(user_queue_id, &message, MESSAGE_SIZE, INIT);
 }
 
 void send_2all() {
-  int user_id = user_request.msg_text.sender;
 
-  server_response.msg_type = SEND_2ALL;
-  server_response.msg_text.sender = user_id;
-  strcpy(server_response.msg_text.buffor, user_request.msg_text.buffor);
-
-  printf("SERVER: user with id %d send message to all users\n", user_id);
+  printf("SERVER: sending message to everybody\n");
 
   for (int i = 0; i < MAX_CLIENTS_NUMBER; i++) {
-    if (clients_id[i] != 1) {
-      msgsnd(clients_id[i], &server_response, sizeof(struct msg_text), 0);
-      log(clients_id[i], server_response.msg_text.buffor);
+    if (clients_keys[i] != 1) {
+      sprintf(user_path, "/%d", clients_keys[i]);
+      mqd_t user_queue_id = mq_open(user_path, O_WRONLY);
+      mq_send(user_queue_id, &message, MESSAGE_SIZE, SEND_2ALL);
     }
   }
 }
 
 void user_send_2one() {
-  int user_id = user_request.msg_text.sender;
+  int user_key = atoi(message);
 
-  server_response.msg_type = SEND_2ALL;
-  server_response.msg_text.sender = user_id;
-  strcpy(server_response.msg_text.buffor, user_request.msg_text.buffor);
+  mq_receive(server_id, &message, sizeof(char)*1064, &piority);
 
-  printf("SERVER: user with id %d send message to user %d\n", user_id, user_request.msg_text.address);
-
-  msgsnd(user_request.msg_text.address, &server_response, sizeof(struct msg_text), 0);
-  log(user_request.msg_text.address, server_response.msg_text.buffor);
-
+  sprintf(user_path, "/%d", user_key);
+  mqd_t user_queue_id = mq_open(user_path, O_WRONLY);
+  mq_send(user_queue_id, &message, MESSAGE_SIZE, SEND_2ALL);
 }
+
 void user_stoped() {
-  int user_key = user_request.msg_text.sender;
-  printf("SERVER: user %d is closed\n", user_key);
+  printf("SERVER: user %s is closed\n", message);
 
   for (int i = 0; i < MAX_CLIENTS_NUMBER; i++) {
-    if (clients_id[i] == user_key) {
-      clients_id[i] = -1;
+    if (clients_keys[i] == atoi(message)) {
+      clients_keys[i] = -1;
       return;
     }
   }
   fprintf(stderr, "SERVER: couldn't delete user\n");
 }
 
+void close_clients() {
+  sprintf(message, "SERVER: time to close");
+
+  for (int i = 0; i < MAX_CLIENTS_NUMBER; i++) {
+    if (clients_keys[i] != -1) {
+      sprintf(user_path, "/%d", clients_keys[i]);
+      mqd_t user_queue_id = mq_open(user_path, O_WRONLY);
+      mq_send(user_queue_id, &message, MESSAGE_SIZE, CLOSING_SERVER);
+    }
+  }
+}
+void close_server() {
+  if (mq_close(server_id) == -1) {
+    fprintf(stderr, "SERVER: couldn't close queue\n");
+    exit(1);
+  }
+  if (mq_unlink(server_path) == -1) {
+    fprintf(stderr, "SERVER: couldn't destroy queue\n");
+    exit(1);
+  }
+}
+
+void SIGINT_handler(int signal_num) {
+  close_clients();
+  sleep(2);
+  close_server();
+}
+
 void response() {
-  switch (user_request.msg_type) {
+  switch (piority) {
     case INIT:
       register_user();
       break;
@@ -144,46 +155,17 @@ void response() {
   }
 }
 
-void close_clients() {
-  server_response.msg_type = CLOSING_SERVER;
-  server_response.msg_text.sender = server_id;
-
-  for (int i = 0; i < MAX_CLIENTS_NUMBER; i++) {
-    if (clients_id[i] != -1) {
-      msgsnd(clients_id[i], &server_response, sizeof(struct msg_text), 0);
-      log(clients_id[i], server_response.msg_text.buffor);
-    }
-  }
-}
-void close_server() {
-  if (msgctl(server_id, IPC_RMID, NULL) == -1) {
-    fprintf(stderr, "SERVER: couldn't close queue\n");
-    exit(1);
-  }
-  exit(0);
-}
-
-void SIGINT_handler(int signal_num) {
-  close_clients();
-  sleep(2);
-  close_server();
-}
-
 int main(int argc, char** argv) {
-  char* home = getenv("HOME");
-
   for (int i = 0; i < MAX_CLIENTS_NUMBER; i++) {
-      clients_id[i] = -1;
+    clients_keys[i] = -1;
   }
 
-  // a to po co
-  // struct mq_attr current_state;
   struct mq_attr server_attr;
   server_attr.mq_maxmsg = MAX_MESSAGE_QUEUE_SIZE;
   server_attr.mq_msgsize = MESSAGE_SIZE;
 
-  server_id = mq_open(server_path, O_RDONLY | O_CREAT | O_EXCL, 0666, &server_attr);
-  printf("SERVER: My id is %d\n", server_id);
+  server_id = mq_open(server_path, O_RDWR | O_CREAT | O_EXCL, QUEUE_PERMISSIONS, &server_attr);
+  printf("SERVER: My path is %d\n", server_path);
 
   struct sigaction action;
 
@@ -193,7 +175,7 @@ int main(int argc, char** argv) {
   sigaction(SIGINT, &action, NULL);
 
   while(1) {
-    if (msgrcv(server_id, &user_request, sizeof(struct msg), -10,0) == -1) {
+    if (mq_receive(server_id, &message, MESSAGE_SIZE, &piority) == -1) {
       fprintf(stderr, "SERVER: couldn't receive msg\n");
       exit(1);
     }
