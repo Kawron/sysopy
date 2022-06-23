@@ -13,11 +13,11 @@ typedef enum {
     FREE,
     O,
     X
-} object;
+} mark;
 
 typedef struct {
     int move;
-    object objects[9];
+    mark marks[9];
 } Board;
 
 typedef enum {
