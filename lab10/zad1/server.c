@@ -1,167 +1,87 @@
-#define _POSIX_C_SOURCE 200112L
-
-#include <netdb.h>
-#include <poll.h>
+#include <errno.h>
 #include <pthread.h>
+#include <time.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include <sys/socket.h>
-#include <sys/un.h>
-#include <time.h>
+#include <stdlib.h>
 #include <unistd.h>
-#include <errno.h>
+#include <poll.h>
+#include <netdb.h>
+#include <sys/un.h>
+#include "common.h"
 
-#define MAX_PLAYERS 20
-#define MAX_BACKLOG 10
-#define MAX_MESSAGE_LENGTH 256
-
-typedef struct {
-    char *name;
-    int fd;
-    int online;
-} client;
-
-client *clients[MAX_PLAYERS] = {NULL};
+client* clients[MAX_PLAYERS] = {NULL};
 int clients_count = 0;
 
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
-void exit_on_error(char *);
+int init_local_socket(char* path) {
 
-int init_local_socket(char *);
+    int socket_fd = socket(AF_UNIX, SOCK_STREAM, 0);
 
-int init_network_socket(char *);
-
-void ping();
-
-int add_client(char *, int);
-
-void remove_client(char *);
-
-int check_messages(int, int);
-
-int get_by_name(char *);
-
-int get_opponent(int);
-
-int main(int argc, char *argv[]) {
-    if (argc != 3)
-        exit_on_error("./server [port] [path]");
-    char *port, *socket_path;
-    int local_socket, network_socket;
-    port = argv[1];
-    socket_path = argv[2];
-    srand(time(NULL));
-    local_socket = init_local_socket(socket_path);
-    network_socket = init_network_socket(port);
-
-    pthread_t thread;
-    pthread_create(&thread, NULL, (void *(*)(void *)) ping, NULL);
-    while (1) {
-        int client_fd = check_messages(local_socket, network_socket);
-        char buffer[MAX_MESSAGE_LENGTH + 1];
-        recv(client_fd, buffer, MAX_MESSAGE_LENGTH, 0);
-        printf("%s\n", buffer);
-        char *command, *arg, *name;
-        command = strtok(buffer, ":");
-        arg = strtok(NULL, ":");
-        name = strtok(NULL, ":");
-        pthread_mutex_lock(&mutex);
-        if (strcmp(command, "add") == 0) {
-            int index = add_client(name, client_fd);
-            if (index == -1) {
-                send(client_fd, "add:name_taken", MAX_MESSAGE_LENGTH, 0);
-                close(client_fd);
-            } else if (index % 2 == 0)
-                send(client_fd, "add:no_enemy", MAX_MESSAGE_LENGTH, 0);
-            else {
-                int random_num = rand() % 100;
-                int first, second;
-                if (random_num % 2 == 0) {
-                    first = index;
-                    second = get_opponent(index);
-                } else {
-                    second = index;
-                    first = get_opponent(index);
-                }
-                send(clients[first]->fd, "add:O", MAX_MESSAGE_LENGTH, 0);
-                send(clients[second]->fd, "add:X", MAX_MESSAGE_LENGTH, 0);
-            }
-        }
-        if (strcmp(command, "move") == 0) {
-            int move = atoi(arg);
-            int player = get_by_name(name);
-            sprintf(buffer, "move:%d", move);
-            send(clients[get_opponent(player)]->fd, buffer, MAX_MESSAGE_LENGTH, 0);
-        }
-        if (strcmp(command, "quit") == 0)
-            remove_client(name);
-        if (strcmp(command, "pong") == 0) {
-            int player = get_by_name(name);
-            if (player != -1)
-                clients[player]->online = 1;
-        }
-        pthread_mutex_unlock(&mutex);
-    }
-}
-
-void exit_on_error(char *mess) {
-    fprintf(stderr, "ERROR: %s.\n", mess);
-    fprintf(stderr, "ERRNO: %d.\n", errno);
-    exit(1);
-}
-
-int init_local_socket(char *path) {
-    int local_socket = socket(AF_UNIX, SOCK_STREAM, 0);
     struct sockaddr_un local_sockaddr;
+
     memset(&local_sockaddr, 0, sizeof(struct sockaddr_un));
     local_sockaddr.sun_family = AF_UNIX;
     strcpy(local_sockaddr.sun_path, path);
+
     unlink(path);
-    bind(local_socket, (struct sockaddr *) &local_sockaddr, sizeof(struct sockaddr_un));
-    listen(local_socket, MAX_BACKLOG);
-    return local_socket;
+    bind(socket_fd, (struct sockaddr*) &local_sockaddr, sizeof(struct sockaddr_un));
+    listen(socket_fd, MAX_BACKLOG);
+
+    return socket_fd;
 }
 
-int init_network_socket(char *port) {
-    struct addrinfo *info;
+int init_network_socket(char* service) {
+
     struct addrinfo hints;
+    struct addrinfo* res;
+
     memset(&hints, 0, sizeof(struct addrinfo));
     hints.ai_family = AF_UNSPEC;
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_flags = AI_PASSIVE;
-    getaddrinfo(NULL, port, &hints, &info);
-    int network_socket = socket(info->ai_family, info->ai_socktype, info->ai_protocol);
-    bind(network_socket, info->ai_addr, info->ai_addrlen);
+
+    getaddrinfo(NULL, service, &hints, &res);
+
+    int network_socket = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
+    bind(network_socket, res->ai_addr, res->ai_addrlen);
     listen(network_socket, MAX_BACKLOG);
-    freeaddrinfo(info);
+    freeaddrinfo(res);
+
     return network_socket;
 }
 
-void ping() {
+void PING() {
     while (1) {
-        printf("*PINGING*\n");
+        printf("SERVER: PING USERS\n");
+
+        // how the fuck this works?
         pthread_mutex_lock(&mutex);
         for (int i = 0; i < MAX_PLAYERS; i++) {
-            if (clients[i] != NULL && !clients[i]->online)
+            if (clients[i] != NULL && !clients[i]->online) {
                 remove_client(clients[i]->name);
+            }
         }
         for (int i = 0; i < MAX_PLAYERS; i++) {
             if (clients[i] != NULL) {
-                send(clients[i]->fd, "ping: ", MAX_MESSAGE_LENGTH, 0);
+                send(clients[i]->fd, "PING: ", MAX_MESSAGE_LENGTH, 0);
                 clients[i]->online = 0;
             }
         }
+
         pthread_mutex_unlock(&mutex);
-        sleep(3);
+        sleep(5);
     }
 }
 
-int add_client(char *name, int fd) {
+int add_client(char* name, int fd) {
+
     for (int i = 0; i < MAX_PLAYERS; i++) {
-        if (clients[i] != NULL && strcmp(clients[i]->name, name) == 0)
+        if (clients[i] != NULL && strcmp(clients[i]->name, name) == 0) {
             return -1;
+        }
     }
     int index = -1;
     for (int i = 0; i < MAX_PLAYERS; i += 2) {
@@ -190,11 +110,12 @@ int add_client(char *name, int fd) {
     return index;
 }
 
-void remove_client(char *name) {
+void remove_client(char* name) {
     int index = -1;
     for (int i = 0; i < MAX_PLAYERS; i++) {
-        if (clients[i] != NULL && strcmp(clients[i]->name, name) == 0)
+        if (clients[i] != NULL && strcmp(clients[i]->name, name) == 0) {
             index = i;
+        }
     }
     printf("Removing client: %s.\n", name);
     free(clients[index]->name);
@@ -238,10 +159,11 @@ int check_messages(int local_socket, int network_socket) {
     return result;
 }
 
-int get_by_name(char *name) {
+int get_by_name(char* name) {
     for (int i = 0; i < MAX_PLAYERS; i++) {
-        if (clients[i] != NULL && strcmp(clients[i]->name, name) == 0)
+        if (clients[i] != NULL && strcmp(clients[i]->name, name) == 0) {
             return i;
+        }
     }
     return -1;
 }
@@ -251,4 +173,89 @@ int get_opponent(int index) {
         return index + 1;
     else
         return index - 1;
+}
+
+int main(int argc, char* argv[]) {
+
+    if (argc != 3) {
+        fprintf(stderr, "WRONG NUM OF ARGUMENTS\n");
+        exit(1);
+    }
+
+    char* port;
+    char* socket_path;
+
+    port = argv[1];
+    socket_path = argv[2];
+
+    int local_socket = init_local_socket(socket_path);
+    int network_socket = init_network_socket(port);
+
+    pthread_t thread;
+    // ? to może da się uprościć
+    pthread_create(&thread, NULL, (void *(*)(void *)) PING, NULL);
+
+    char buffer[MAX_MESSAGE_LENGTH];
+    char* cmd = calloc(MAX_MESSAGE_LENGTH, sizeof(char));
+    char* name = calloc(MAX_MESSAGE_LENGTH, sizeof(char));
+    char* arg = calloc(MAX_MESSAGE_LENGTH, sizeof(char));
+    while (1) {
+
+        int client_fd = check_messages(local_socket, network_socket);
+
+        recv(client_fd, buffer, MAX_MESSAGE_LENGTH, 0);
+        printf("%s\n", buffer);
+
+
+        cmd = strtok(buffer, ":");
+        arg = strtok(NULL, ":");
+        name = strtok(NULL, ":");
+
+        pthread_mutex_lock(&mutex);
+        if (strcmp(cmd, "LOGIN") == 0) {
+            int index = add_client(name, client_fd);
+            // POZMIENIAC TE WIADOMOSCI
+            if (index == -1) {
+                // tutaj można dać całkiem inne zachowanie
+                send(client_fd, "LOGIN:name_taken", MAX_MESSAGE_LENGTH, 0);
+                close(client_fd);
+            }
+
+            else if (index % 2 == 0) {
+                send(client_fd, "LOGIN:no_enemy", MAX_MESSAGE_LENGTH, 0);
+            }
+
+            else {
+                int random_num = rand() % 10;
+                int first;
+                int second;
+                if (random_num % 2 == 0) {
+                    first = index;
+                    second = get_opponent(index);
+                } else {
+                    second = index;
+                    first = get_opponent(index);
+                }
+                send(clients[first]->fd, "LOGIN:O", MAX_MESSAGE_LENGTH, 0);
+                send(clients[second]->fd, "LOGIN:X", MAX_MESSAGE_LENGTH, 0);
+            }
+        }
+        if (strcmp(cmd, "MOVE") == 0) {
+            int MOVE = atoi(arg);
+            int player = get_by_name(name);
+            sprintf(buffer, "MOVE:%d", MOVE);
+            send(clients[get_opponent(player)]->fd, buffer, MAX_MESSAGE_LENGTH, 0);
+        }
+        if (strcmp(cmd, "EXIT") == 0) {
+            remove_client(name);
+        }
+
+        if (strcmp(cmd, "PONG") == 0) {
+            int player = get_by_name(name);
+            if (player != -1) {
+                clients[player]->online = 1;
+            }
+        }
+        pthread_mutex_unlock(&mutex);
+    }
 }

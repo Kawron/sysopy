@@ -4,6 +4,7 @@
 #include <sys/time.h>
 #include <math.h>
 #include <pthread.h>
+#include <sys/time.h>
 
 #define MAX_LINE_LEN 256
 
@@ -69,7 +70,7 @@ void load_image(char* filename) {
 void save_image(char* out_filename) {
     FILE* f = fopen(out_filename, "w");
     if (f == NULL) {
-        fprintf(stderr, "Cannot open file to save image\n");
+        fprintf(stderr, "Couldn't open file to save image\n");
         exit(1);
     }
     fprintf(f, "P2\n");
@@ -94,6 +95,9 @@ void print_image() {
 }
 
 void numbers_negative(void* arg) {
+    struct timeval start, end;
+    gettimeofday(&start, NULL);
+
     // left inclusive, right exclusive
     int idx = *((int*) arg);
     int lower_limit = 256 / num_of_threads * idx;
@@ -114,9 +118,16 @@ void numbers_negative(void* arg) {
             }
         }
     }
+
+    gettimeofday(&end, NULL);
+    int time = (end.tv_sec - start.tv_sec) * 1000000 + (end.tv_usec - start.tv_usec);
+    pthread_exit(time);
 }
 
 void block_negative(void* arg) {
+    struct timeval start, end;
+    gettimeofday(&start, NULL);
+
     int idx = *((int*) arg);
 
     int x1 = idx * ceil(width/num_of_threads);
@@ -134,6 +145,31 @@ void block_negative(void* arg) {
             negative[i][j] = 255 - val;
         }
     }
+
+    gettimeofday(&end, NULL);
+    int time = (end.tv_sec - start.tv_sec) * 1000000 + (end.tv_usec - start.tv_usec);
+    pthread_exit(time);
+}
+
+void get_times(pthread_t* threads, char* mode, struct timeval start) {
+    struct timeval end;
+    FILE* f = fopen("times.txt", "a");
+
+    fprintf(f, "\n");
+    fprintf(f, "Width: %d, Height: %d \n", width, height);
+    fprintf(f, "Num of threads: %d\n", num_of_threads);
+    fprintf(f, "Mode: %s\n", mode);
+
+    for (int i = 0; i < num_of_threads; i++) {
+        int time;
+        pthread_join(threads[i], &time);
+        fprintf(f, "Thread number: %d, Time: %d microseconds\n", i, time);
+    }
+    gettimeofday(&end, NULL);
+    int time;
+    time = (end.tv_sec - start.tv_sec) * 1000000 + (end.tv_usec - start.tv_usec);
+    fprintf(f, "Total running time was: %d microseconds\n", time);
+    fclose(f);
 }
 
 int main(int argc, char** argv) {
@@ -145,14 +181,17 @@ int main(int argc, char** argv) {
 
     num_of_threads = atoi(argv[1]);
     char* mode = argv[2];
-    char* filename = atoi(argv[3]);
-    char* out_filename = atoi(argv[4]);
+    char* filename = argv[3];
+    char* out_filename = argv[4];
 
     load_image(filename);
     copy_image();
 
     pthread_t* threads = calloc(num_of_threads, sizeof(pthread_t));
     int* idxs = calloc(num_of_threads, sizeof(int));
+
+    struct timeval start;
+    gettimeofday(&start, NULL);
 
     for (int i = 0; i < num_of_threads; i++) {
         idxs[i] = i;
@@ -167,5 +206,13 @@ int main(int argc, char** argv) {
             exit(1);
         }
     }
+    get_times(threads, mode, start);
     save_image(out_filename);
+
+    free(threads);
+    free(idxs);
+    for (int i = 0; i < height; i++) {
+        free(image[i]);
+        free(negative[i]);
+    }
 }

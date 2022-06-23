@@ -1,0 +1,54 @@
+
+Width: 2272, Height: 1704 
+Num of threads: 10
+Mode: numbers
+Thread number: 0, Time: 21518 microseconds
+Thread number: 1, Time: 24953 microseconds
+Thread number: 2, Time: 23986 microseconds
+Thread number: 3, Time: 18256 microseconds
+Thread number: 4, Time: 22922 microseconds
+Thread number: 5, Time: 24170 microseconds
+Thread number: 6, Time: 24023 microseconds
+Thread number: 7, Time: 18482 microseconds
+Thread number: 8, Time: 16558 microseconds
+Thread number: 9, Time: 13844 microseconds
+Total running time was: 35574 microseconds
+
+Width: 2272, Height: 1704 
+Num of threads: 5
+Mode: numbers
+Thread number: 0, Time: 24492 microseconds
+Thread number: 1, Time: 25658 microseconds
+Thread number: 2, Time: 24785 microseconds
+Thread number: 3, Time: 19297 microseconds
+Thread number: 4, Time: 22154 microseconds
+Total running time was: 26000 microseconds
+
+
+Width: 2272, Height: 1704 
+Num of threads: 10
+Mode: block
+Thread number: 0, Time: 6078 microseconds
+Thread number: 1, Time: 6536 microseconds
+Thread number: 2, Time: 6233 microseconds
+Thread number: 3, Time: 3294 microseconds
+Thread number: 4, Time: 5653 microseconds
+Thread number: 5, Time: 6426 microseconds
+Thread number: 6, Time: 5868 microseconds
+Thread number: 7, Time: 3229 microseconds
+Thread number: 8, Time: 3212 microseconds
+Thread number: 9, Time: 3439 microseconds
+Total running time was: 7787 microseconds
+
+Width: 2272, Height: 1704 
+Num of threads: 5
+Mode: block
+Thread number: 0, Time: 8590 microseconds
+Thread number: 1, Time: 7815 microseconds
+Thread number: 2, Time: 6900 microseconds
+Thread number: 3, Time: 3545 microseconds
+Thread number: 4, Time: 8458 microseconds
+Total running time was: 8884 microseconds
+
+Jak widać metoda blockowa jest dużo szybsza od metody 'numbers'. Najprowdopodbniej wyniko to z faktu, że w metodzie 'numbers' każdy wątek przechodzi
+po całej macierzy obrazu. Zaskakujące jest, że dla metody 'numbers' mniejsza ilość wątków może być szybsza od większej ilości wątków.
