@@ -1,0 +1,5 @@
+client:
+    main - refactored
+    draw - refactored
+    check_winner - refactored heavly
+server:

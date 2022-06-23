@@ -27,43 +27,92 @@ Board new_board() {
     return new_board;
 }
 
-object check_winner() {
-    object column = FREE;
+object check_columns() {
     for (int x = 0; x < 3; x++) {
-        object first = board.objects[x];
-        object second = board.objects[x + 3];
-        object third = board.objects[x + 6];
-        if (first == second && first == third && first != FREE)
-            column = first;
+        object obj1 = board.objects[x];
+        object obj2 = board.objects[x+3];
+        object obj3 = board.objects[x+6];
+        if (obj1 == obj2 && obj2 == obj3 && obj1 != FREE) {
+            return obj1;
+        }
     }
-    if (column != FREE)
-        return column;
-    object row = FREE;
-    for (int y = 0; y < 3; y++) {
-        object first = board.objects[3 * y];
-        object second = board.objects[3 * y + 1];
-        object third = board.objects[3 * y + 2];
-        if (first == second && first == third && first != FREE)
-            row = first;
-    }
-    if (row != FREE)
-        return row;
-    object lower_diagonal = FREE;
-    object first = board.objects[0];
-    object second = board.objects[4];
-    object third = board.objects[8];
-    if (first == second && first == third && first != FREE)
-        lower_diagonal = first;
-    if (lower_diagonal != FREE)
-        return lower_diagonal;
-    object upper_diagonal = FREE;
-    first = board.objects[2];
-    second = board.objects[4];
-    third = board.objects[6];
-    if (first == second && first == third && first != FREE)
-        upper_diagonal = first;
-    return upper_diagonal;
+    return FREE;
 }
+
+object check_rows() {
+    for (int x = 0; x < 3; x++) {
+        object obj1 = board.objects[3*x];
+        object obj2 = board.objects[3*x + 1];
+        object obj3 = board.objects[3*x + 2];
+        if (obj1 == obj2 && obj2 == obj3 && obj1 != FREE) {
+            return obj1;
+        }
+    }
+    return FREE;
+}
+
+object check_diagonals() {
+    object obj1, obj2, obj3;
+    obj1 = board.objects[0];
+    obj2 = board.objects[4];
+    obj3 = board.objects[8];
+    if (obj1 == obj2 && obj2 == obj3 && obj1 != FREE) {
+        return obj1;
+    }
+    obj1 = board.objects[2];
+    obj2 = board.objects[4];
+    obj3 = board.objects[6];
+    if (obj1 == obj2 && obj2 == obj3 && obj1 != FREE) {
+        return obj1;
+    }
+
+    return FREE;
+}
+
+// object check_winner() {
+//     object column = FREE;
+//     for (int x = 0; x < 3; x++) {
+//         object first = board.objects[x];
+//         object second = board.objects[x + 3];
+//         object third = board.objects[x + 6];
+//         if (first == second && first == third && first != FREE) {
+//             column = first;
+//         }
+//     }
+//     if (column != FREE) {
+//         return column;
+//     }
+//     object row = FREE;
+//     for (int y = 0; y < 3; y++) {
+//         object first = board.objects[3 * y];
+//         object second = board.objects[3 * y + 1];
+//         object third = board.objects[3 * y + 2];
+//         if (first == second && first == third && first != FREE) {
+//             row = first;
+//         }
+//     }
+//     if (row != FREE) {
+//         return row;
+//     }
+//     object lower_diagonal = FREE;
+//     object first = board.objects[0];
+//     object second = board.objects[4];
+//     object third = board.objects[8];
+//     if (first == second && first == third && first != FREE) {
+//         lower_diagonal = first;
+//     }
+//     if (lower_diagonal != FREE) {
+//         return lower_diagonal;
+//     }
+//     object upper_diagonal = FREE;
+//     first = board.objects[2];
+//     second = board.objects[4];
+//     third = board.objects[6];
+//     if (first == second && first == third && first != FREE) {
+//         upper_diagonal = first;
+//     }
+//     return upper_diagonal;
+// }
 
 void quit() {
     sprintf(buffer, "quit: :%s", name);
@@ -80,7 +129,7 @@ int move(int position) {
 }
 
 void draw() {
-    system("clear");
+    // system("clear");
     char symbol;
     int idx;
     for (int y = 0; y < 3; y++) {
@@ -106,12 +155,21 @@ void draw() {
 
 void check_game() {
     int win = 0;
-    object winner = check_winner();
+    object winner;
+    winner = check_rows();
+    if (winner == FREE) {
+        winner = check_columns();
+    }
+    if (winner == FREE) {
+        winner = check_diagonals();
+    }
     if (winner != FREE) {
-        if ((is_client_O && winner == O) || (!is_client_O && winner == X))
+        if ((is_client_O && winner == O) || (!is_client_O && winner == X)) {
             printf("WIN!\n");
-        else
+        }
+        else {
             printf("LOST!\n");
+        }
         win = 1;
     }
     int draw = 1;
