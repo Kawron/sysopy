@@ -1,5 +1,3 @@
-#define _POSIX_C_SOURCE 200112L
-
 #include <netdb.h>
 #include <poll.h>
 #include <pthread.h>
@@ -13,7 +11,7 @@
 #include <errno.h>
 #include "common.h"
 
-client *clients[MAX_PLAYERS] = {NULL};
+client* clients[MAX_PLAYERS] = {NULL};
 int clients_count = 0;
 char buffer[MAX_MESSAGE_LENGTH];
 
@@ -56,29 +54,11 @@ int init_network_socket(char* service) {
     return network_socket;
 }
 
-void ping() {
-    while (1) {
-        printf("*PINGING*\n");
-        pthread_mutex_lock(&mutex);
-        for (int i = 0; i < MAX_PLAYERS; i++) {
-            if (clients[i] != NULL && !clients[i]->online)
-                remove_client(clients[i]->name);
-        }
-        for (int i = 0; i < MAX_PLAYERS; i++) {
-            if (clients[i] != NULL) {
-                send(clients[i]->fd, "ping: ", MAX_MESSAGE_LENGTH, 0);
-                clients[i]->online = 0;
-            }
-        }
-        pthread_mutex_unlock(&mutex);
-        sleep(3);
-    }
-}
-
-int add_client(char *name, int fd) {
+int add_client(char* name, int fd) {
     for (int i = 0; i < MAX_PLAYERS; i++) {
-        if (clients[i] != NULL && strcmp(clients[i]->name, name) == 0)
+        if (clients[i] != NULL && strcmp(clients[i]->name, name) == 0) {
             return -1;
+        }
     }
     int index = -1;
     for (int i = 0; i < MAX_PLAYERS; i += 2) {
@@ -100,18 +80,18 @@ int add_client(char *name, int fd) {
         new_client->name = calloc(MAX_MESSAGE_LENGTH, sizeof(char));
         strcpy(new_client->name, name);
         new_client->fd = fd;
-        new_client->online = 1;
         clients[index] = new_client;
         clients_count++;
     }
     return index;
 }
 
-void remove_client(char *name) {
+void remove_client(char* name) {
     int index = -1;
     for (int i = 0; i < MAX_PLAYERS; i++) {
-        if (clients[i] != NULL && strcmp(clients[i]->name, name) == 0)
+        if (clients[i] != NULL && strcmp(clients[i]->name, name) == 0) {
             index = i;
+        }
     }
     printf("Removing client: %s.\n", name);
     free(clients[index]->name);
@@ -155,7 +135,7 @@ int check_messages(int local_socket, int network_socket) {
     return result;
 }
 
-int get_by_name(char *name) {
+int get_by_name(char* name) {
     for (int i = 0; i < MAX_PLAYERS; i++) {
         if (clients[i] != NULL && strcmp(clients[i]->name, name) == 0)
             return i;
@@ -163,31 +143,31 @@ int get_by_name(char *name) {
     return -1;
 }
 
+// we connect player with prev or next one
 int get_opponent(int index) {
-    if (index % 2 == 0)
+    if (index % 2 == 0) {
         return index + 1;
-    else
+    }
+    else {
         return index - 1;
+    }
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
 
     if (argc != 3) {
         fprintf(stderr, "WRONG NUM OF ARGUMENTS\n");
         exit(1);
     }
 
-    char* port;
-    char* socket_path;
+    char* port = calloc(MAX_MESSAGE_LENGTH, sizeof(char));
+    char* socket_path = calloc(MAX_MESSAGE_LENGTH, sizeof(char));
 
     port = argv[1];
     socket_path = argv[2];
 
     int local_socket = init_local_socket(socket_path);
     int network_socket = init_network_socket(port);
-
-    pthread_t thread;
-    pthread_create(&thread, NULL, (void *(*)(void *)) ping, NULL);
 
     char* command = calloc(MAX_MESSAGE_LENGTH, sizeof(char));
     char* name = calloc(MAX_MESSAGE_LENGTH, sizeof(char));
@@ -210,22 +190,13 @@ int main(int argc, char *argv[]) {
                 send(client_fd, "add:name_taken", MAX_MESSAGE_LENGTH, 0);
                 close(client_fd);
             }
-            else if (index % 2 == 0) {
+            else if (clients_count % 2 != 0) {
                 send(client_fd, "add:no_enemy", MAX_MESSAGE_LENGTH, 0);
             }
             else {
-                int random_num = rand() % 100;
-                int first, second;
-                if (random_num % 2 == 0) {
-                    first = index;
-                    second = get_opponent(index);
-                }
-                else {
-                    second = index;
-                    first = get_opponent(index);
-                }
-                send(clients[first]->fd, "add:O", MAX_MESSAGE_LENGTH, 0);
-                send(clients[second]->fd, "add:X", MAX_MESSAGE_LENGTH, 0);
+                int opponent = get_opponent(index);
+                send(clients[opponent]->fd, "add:O", MAX_MESSAGE_LENGTH, 0);
+                send(clients[index]->fd, "add:X", MAX_MESSAGE_LENGTH, 0);
             }
         }
         if (strcmp(command, "move") == 0) {
@@ -236,12 +207,6 @@ int main(int argc, char *argv[]) {
         }
         if (strcmp(command, "quit") == 0) {
             remove_client(name);
-        }
-        if (strcmp(command, "pong") == 0) {
-            int player = get_by_name(name);
-            if (player != -1) {
-                clients[player]->online = 1;
-            }
         }
         pthread_mutex_unlock(&mutex);
     }

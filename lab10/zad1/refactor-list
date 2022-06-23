@@ -2,4 +2,16 @@ client:
     main - refactored
     draw - refactored
     check_winner - refactored heavly
+    move - refactored lighlty
+    check_game - refactored medium
+    play_game - refactored slighlty
+    listen_server - almost no refactor
 server:
+    init_local_socket - refactored
+    init_network_socket - refactored
+    add_client -
+    remove_client -
+    check_messages -
+    get_by_name -
+    get_opponent -
+    main - a little bit

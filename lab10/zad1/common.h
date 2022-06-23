@@ -1,3 +1,5 @@
+#define _POSIX_C_SOURCE 200112L
+
 #define MAX_PLAYERS 20
 #define MAX_BACKLOG 10
 #define MAX_MESSAGE_LENGTH 256
@@ -6,7 +8,6 @@
 typedef struct {
     char* name;
     int fd;
-    int online;
 } client;
 
 typedef enum {
